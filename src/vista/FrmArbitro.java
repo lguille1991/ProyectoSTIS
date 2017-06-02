@@ -106,6 +106,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         }
         jTxtFechaNac.setEnabled(false);
 
+        jComboNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
         jComboNacionalidad.setEnabled(false);
         jComboNacionalidad.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -307,16 +308,18 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboNacionalidadItemStateChanged
 
     private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
-        if(this.jTxtNombre.getText().equals("") && this.jTxtFechaNac.getText().equals("")){//No permite guardar si el campo está vacío
+        if(this.jTxtNombre.getText().equals("") && this.jTxtFechaNac.getText().equals("") || this.jComboNacionalidad.getSelectedItem().toString().equals("Seleccione uno")){//No permite guardar si el campo está vacío
             JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            habilitarInput(true,false);
         }else{
             if(editar==0){
-                insertar(); 
+                insertar();
+                habilitarInput(false,false);
             }else if(editar==1){
             modificar();
+            habilitarInput(false,false);
             }
         }
-        habilitarInput(false,false);
     }//GEN-LAST:event_BtnGuardarMouseClicked
 
     private void BtnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEditarMouseClicked
