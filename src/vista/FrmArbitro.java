@@ -361,11 +361,11 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     private void jTablaArbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaArbMouseClicked
         int fila=this.jTablaArb.getSelectedRow();
         this.jTxtCodigo.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 0)));
-        this.jTxtIdNacion.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 1)));
-        this.jComboNacionalidad.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 2).toString()));
-        this.jTxtNombre.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 3)));
-        this.jTxtFechaNac.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 4)));
-        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 5).toString()));
+        //this.jTxtIdNacion.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 1)));
+        this.jComboNacionalidad.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 1).toString()));
+        this.jTxtNombre.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 2)));
+        this.jTxtFechaNac.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 3)));
+        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 4).toString()));
     }//GEN-LAST:event_jTablaArbMouseClicked
     
     //Busqueda dinámica
@@ -478,8 +478,8 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     
     public DefaultTableModel mostrar(){
         this.jTxtIdNacion.setVisible(false);
-        String []columnas={"Código arbitro","Codigo nacionalidad","Nacionalidad","Nombre","Fecha nacimiento","Tipo"};
-        Object[]obj=new Object[6];
+        String []columnas={"Código arbitro","Nacionalidad","Nombre","Fecha nacimiento","Tipo"};
+        Object[]obj=new Object[5];
         DefaultTableModel tabla = new DefaultTableModel(null,columnas);
         Arbitro ar = new Arbitro();
         ControlArbitro ca = new ControlArbitro();
@@ -489,11 +489,10 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
             for(int i=0;i<ls.size();i++){
                 ar=(Arbitro)ls.get(i);
                 obj[0]=ar.getIdArbitro();
-                obj[1]=ar.getIdNacionalidad();
-                obj[2]=ar.getNombreNacionalidad();
-                obj[3]=ar.getNombreArbitro();
-                obj[4]=ar.getTipo();
-                obj[5]=ar.getFechaNac();
+                obj[1]=ar.getNombreNacionalidad();
+                obj[2]=ar.getNombreArbitro();
+                obj[3]=ar.getTipo();
+                obj[4]=ar.getFechaNac();
                 tabla.addRow(obj);
             }
             ls=ca.mostrarArbitro();
