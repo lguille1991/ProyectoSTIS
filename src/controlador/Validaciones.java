@@ -1,4 +1,4 @@
-package clases;
+package controlador;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -38,6 +38,13 @@ public class Validaciones {
         if(evt.getKeyChar()=='.' && txt.getText().contains("."))
         {
            evt.consume();
+        }
+    }
+    
+    public void validarTodo(KeyEvent evt){
+        s = evt.getKeyChar();
+        if(!Character.isLetter(s) && s!=KeyEvent.VK_SPACE && evt.getKeyChar()!='.' && !Character.isDigit(s)){
+            evt.consume();
         }
     }
 }

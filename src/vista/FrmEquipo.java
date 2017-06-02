@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Validaciones;
 import conexion.Conexion;
 import controlador.ControlEquipo;
 import java.awt.event.KeyAdapter;
@@ -20,6 +21,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
     private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
     TableRowSorter tbs ;
     DefaultTableModel model;
+    Validaciones val=new Validaciones();
     /**
      * Creates new form FrmEquipo
      */
@@ -329,18 +331,12 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
 
     private void jTxtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoKeyTyped
         //Validación sólo números
-        Character s = evt.getKeyChar();
-        if(!Character.isDigit(s)){
-            evt.consume();
-        }
+        val.validarNumero(evt);
     }//GEN-LAST:event_jTxtCodigoKeyTyped
 
     private void jTxtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNombreKeyTyped
         //Validación letras, números y espacios
-        Character s = evt.getKeyChar();
-        if(!Character.isLetter(s) && s!=KeyEvent.VK_SPACE && !Character.isDigit(s)){
-            evt.consume();
-        }
+        val.validarTodo(evt);
     }//GEN-LAST:event_jTxtNombreKeyTyped
 
     private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
