@@ -161,7 +161,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nombre", "Tipo", "Fecha nacimiento", "Nacionalidad"
+                "Código", "Nacionalidad", "Nombre", "Fecha nacimiento", "Tipo"
             }
         ));
         jTablaArb.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,7 +314,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnGuardarMouseClicked
 
     private void BtnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEditarMouseClicked
-        if(this.jTxtNombre.getText().equals("") && this.jTxtFechaNac.getText().equals("")){//No permite editar sin haber seleccionado un registro
+        if(this.jTxtNombre.getText().equals("") || this.jTxtFechaNac.getText().equals("")){//No permite editar sin haber seleccionado un registro
             JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a editar", "ERROR", JOptionPane.ERROR_MESSAGE);
         }else{
             habilitarInput(true,false);
@@ -323,7 +323,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnEditarMouseClicked
 
     private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
-        if(this.jTxtNombre.getText().equals("") && this.jTxtFechaNac.getText().equals("")){//No permite eliminar sin haber seleccionado un registro
+        if(this.jTxtNombre.getText().equals("") || this.jTxtFechaNac.getText().equals("")){//No permite eliminar sin haber seleccionado un registro
             JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
         }else{
             eliminar();
@@ -351,7 +351,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         this.jTxtIdNacion.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 1)));
         this.jTxtNombre.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 2)));
         this.jTxtFechaNac.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 3)));
-        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 5)));
+        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 4).toString()));
     }//GEN-LAST:event_jTablaArbMouseClicked
   
     public void llenarCombo(){

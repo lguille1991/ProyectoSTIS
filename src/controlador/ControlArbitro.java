@@ -157,7 +157,7 @@ public class ControlArbitro implements OperacionesArbitro{
         ResultSet res;
         Statement st;
         String sql;
-        int idNacion = 234;
+        int idNacion = 0;
         
         try{
             Class.forName(con.getDriver());
