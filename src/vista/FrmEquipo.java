@@ -411,8 +411,7 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                  tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
-            }
-                
+            }   
             });
         DefaultTableModel tablas = mostrar();
         tbs = new TableRowSorter(tablas);

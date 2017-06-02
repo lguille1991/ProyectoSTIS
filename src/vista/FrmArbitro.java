@@ -2,17 +2,17 @@ package vista;
 
 import conexion.Conexion;
 import controlador.ControlArbitro;
-import controlador.ControlEquipo;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.Arbitro;
-import modelo.Equipo;
 
 /**
  *
@@ -180,6 +180,12 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         });
 
         jLabel7.setText("Buscar:");
+
+        jTxtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtBusquedaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -349,10 +355,25 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         int fila=this.jTablaArb.getSelectedRow();
         this.jTxtCodigo.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 0)));
         this.jTxtIdNacion.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 1)));
-        this.jTxtNombre.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 2)));
-        this.jTxtFechaNac.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 3)));
-        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 4).toString()));
+        this.jComboNacionalidad.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 2).toString()));
+        this.jTxtNombre.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 3)));
+        this.jTxtFechaNac.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 4)));
+        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 5).toString()));
     }//GEN-LAST:event_jTablaArbMouseClicked
+    
+    //Busqueda dinámica
+    private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
+        this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 3));
+            }
+        });
+        
+        DefaultTableModel tablas = mostrar();
+        tbs = new TableRowSorter(tablas);
+        this.jTablaArb.setRowSorter(tbs);
+    }//GEN-LAST:event_jTxtBusquedaKeyTyped
   
     public void llenarCombo(){
          ControlArbitro ca = new ControlArbitro();
@@ -439,8 +460,9 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     }
     
     public DefaultTableModel mostrar(){
-        String []columnas={"Código arbitro","Código nacionalidad","Nombre","Fecha nacimiento","Tipo"};
-        Object[]obj=new Object[5];
+        this.jTxtIdNacion.setVisible(false);
+        String []columnas={"Código arbitro","Codigo nacionalidad","Nacionalidad","Nombre","Fecha nacimiento","Tipo"};
+        Object[]obj=new Object[6];
         DefaultTableModel tabla = new DefaultTableModel(null,columnas);
         Arbitro ar = new Arbitro();
         ControlArbitro ca = new ControlArbitro();
@@ -451,9 +473,10 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
                 ar=(Arbitro)ls.get(i);
                 obj[0]=ar.getIdArbitro();
                 obj[1]=ar.getIdNacionalidad();
-                obj[2]=ar.getNombreArbitro();
-                obj[3]=ar.getTipo();
-                obj[4]=ar.getFechaNac();
+                obj[2]=ar.getNombreNacionalidad();
+                obj[3]=ar.getNombreArbitro();
+                obj[4]=ar.getTipo();
+                obj[5]=ar.getFechaNac();
                 tabla.addRow(obj);
             }
             ls=ca.mostrarArbitro();

@@ -53,7 +53,7 @@ public class ControlArbitro implements OperacionesArbitro{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="update equipo set idNacionalidad="+ar.getIdNacionalidad()+",nombreArbitro='"+ar.getNombreArbitro()+"',fechaNac='"+ar.getFechaNac()+"',tipoArbitro='"+ar.getTipo()+"' where idArbitro="+ar.getIdArbitro();
+            sql="update arbitro set idNacionalidad="+ar.getIdNacionalidad()+",nombreArbitro='"+ar.getNombreArbitro()+"',fechaNac='"+ar.getFechaNac()+"',tipoArbitro='"+ar.getTipo()+"' where idArbitro="+ar.getIdArbitro();
             st.executeUpdate(sql);
             st.close();
             cn.close();
@@ -100,15 +100,17 @@ public class ControlArbitro implements OperacionesArbitro{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="select * from arbitro";
+            sql="select idArbitro, arbitro.idNacionalidad, nombreNacionalidad, nombreArbitro, "
+                    + "fechaNac, tipoArbitro from arbitro inner join nacionalidad on arbitro.idNacionalidad=nacionalidad.idNacionalidad";
             res=st.executeQuery(sql);
             while(res.next()){
                 listaarbitros.add(new Arbitro(
                         res.getInt("idArbitro"),
+                        res.getInt("idNacionalidad"),
+                        res.getString("nombreNacionalidad"),
                         res.getString("nombreArbitro"),
                         res.getString("fechaNac"),
-                        res.getString("tipoArbitro"),
-                        res.getInt("idNacionalidad")
+                        res.getString("tipoArbitro")        
                 ));
             }
             res.close();
