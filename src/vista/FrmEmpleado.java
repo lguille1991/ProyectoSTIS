@@ -373,7 +373,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTxtNombreKeyTyped
 
     private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
-        if(this.jTxtNombre.getText().equals("") || this.jComboCargo.getSelectedItem().toString().equals("Seleccione uno")){//No permite guardar si el campo está vacío
+        if(nuevo==1 && this.jTxtNombre.getText().equals("") && this.jComboCargo.getSelectedItem().toString().equals("Seleccione uno")){//No permite guardar si el campo está vacío
             JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
             habilitarInput(true,false);
         }else{
@@ -421,6 +421,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     private void BtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCancelarMouseClicked
         habilitarInput(false,true);
         limpiar();
+        nuevo=0;
     }//GEN-LAST:event_BtnCancelarMouseClicked
 
     private void jTablaEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaEmpMouseClicked
