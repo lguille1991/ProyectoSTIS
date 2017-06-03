@@ -17,7 +17,7 @@ import modelo.Empleado;
  */
 public class FrmEmpleado extends javax.swing.JInternalFrame {
     private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
-    private int nuevo=1;//Bandera para determinar evitar que se ingrese el mismo registro más de una vez
+    private int nuevo=0;//Bandera para determinar evitar que se ingrese el mismo registro más de una vez
     TableRowSorter tbs ;
     DefaultTableModel model;
     Validaciones val = new Validaciones();
@@ -377,13 +377,13 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
             habilitarInput(true,false);
         }else{
-            if(editar==0 && nuevo==0){
+            if(editar==0 && nuevo==1){
                 insertar();
                 habilitarInput(false,false);
             }else if(editar==1){
             modificar();
             habilitarInput(false,false);
-            }else if(nuevo==1){
+            }else if(nuevo==0){
                 JOptionPane.showMessageDialog(rootPane, "Clic en NUEVO para ingresar un empleado", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }

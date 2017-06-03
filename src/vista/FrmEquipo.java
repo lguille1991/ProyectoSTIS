@@ -19,6 +19,7 @@ import modelo.Equipo;
  */
 public class FrmEquipo extends javax.swing.JInternalFrame {
     private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
+    private int nuevo=0;//Bandera para determinar evitar que se ingrese el mismo registro más de una vez
     TableRowSorter tbs ;
     DefaultTableModel model;
     Validaciones val=new Validaciones();
@@ -343,10 +344,12 @@ public class FrmEquipo extends javax.swing.JInternalFrame {
         if(this.jTxtNombre.getText().equals("")){//No permite guardar si el campo está vacío
             JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }else{
-            if(editar==0){
+            if(editar==0 && nuevo==1){
                 insertar(); 
             }else if(editar==1){
             modificar();
+            }else if(nuevo==0){
+                JOptionPane.showMessageDialog(rootPane, "Clic en NUEVO para ingresar un empleado", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
         habilitarInput(false,false);
