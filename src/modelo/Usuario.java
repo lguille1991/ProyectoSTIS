@@ -4,24 +4,30 @@ package modelo;
  * @author 
  */
 public class Usuario {
-    private String idUsuario;
+    private int idUsuario;
     private String contrasena;
-    private RolUsuario rol;
+    private int idRol;
+    private String idNombre;
+    private int idEmpleado;
+    private String nombreEmpleado;
 
     public Usuario() {
     }
 
-    public Usuario(String idUsuario, String contrasena, RolUsuario rol) {
+    public Usuario(int idUsuario, String contrasena, int idRol, String idNombre, int idEmpleado, String nombreEmpleado) {
         this.idUsuario = idUsuario;
         this.contrasena = contrasena;
-        this.rol = rol;
+        this.idRol = idRol;
+        this.idNombre = idNombre;
+        this.idEmpleado = idEmpleado;
+        this.nombreEmpleado = nombreEmpleado;
     }
 
-    public String getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -33,17 +39,41 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public RolUsuario getRol() {
-        return rol;
+    public int getIdRol() {
+        return idRol;
     }
 
-    public void setRol(RolUsuario rol) {
-        this.rol = rol;
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+
+    public String getIdNombre() {
+        return idNombre;
+    }
+
+    public void setIdNombre(String idNombre) {
+        this.idNombre = idNombre;
+    }
+
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
+
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", contrasena=" + contrasena + ", rol=" + rol + '}';
+        return "Usuario{" + "idUsuario=" + idUsuario + ", contrasena=" + contrasena + ", idRol=" + idRol + ", idNombre=" + idNombre + ", idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + '}';
     }
 
 }

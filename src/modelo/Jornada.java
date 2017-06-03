@@ -4,24 +4,26 @@ package modelo;
  * @author 
  */
 public class Jornada {
-    private String idJornada;
+    private int idJornada;
     private String nombreJornada;
-    private Torneo torneos;
+    private int idTorneo;
+    private String nombreTorneo;
 
     public Jornada() {
     }
 
-    public Jornada(String idJornada, String nombreJornada, Torneo torneos) {
+    public Jornada(int idJornada, String nombreJornada, int idTorneo, String nombreTorneo) {
         this.idJornada = idJornada;
         this.nombreJornada = nombreJornada;
-        this.torneos = torneos;
+        this.idTorneo = idTorneo;
+        this.nombreTorneo = nombreTorneo;
     }
 
-    public String getIdJornada() {
+    public int getIdJornada() {
         return idJornada;
     }
 
-    public void setIdJornada(String idJornada) {
+    public void setIdJornada(int idJornada) {
         this.idJornada = idJornada;
     }
 
@@ -33,17 +35,25 @@ public class Jornada {
         this.nombreJornada = nombreJornada;
     }
 
-    public Torneo getTorneos() {
-        return torneos;
+    public int getIdTorneo() {
+        return idTorneo;
     }
 
-    public void setTorneos(Torneo torneos) {
-        this.torneos = torneos;
+    public void setIdTorneo(int idTorneo) {
+        this.idTorneo = idTorneo;
+    }
+
+    public String getNombreTorneo() {
+        return nombreTorneo;
+    }
+
+    public void setNombreTorneo(String nombreTorneo) {
+        this.nombreTorneo = nombreTorneo;
     }
 
     @Override
     public String toString() {
-        return "Jornada{" + "idJornada=" + idJornada + ", nombreJornada=" + nombreJornada + ", torneos=" + torneos + '}';
+        return "Jornada{" + "idJornada=" + idJornada + ", nombreJornada=" + nombreJornada + ", idTorneo=" + idTorneo + ", nombreTorneo=" + nombreTorneo + '}';
     }
    
 }

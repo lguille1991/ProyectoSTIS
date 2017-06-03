@@ -11,10 +11,11 @@ public class Delantero extends Jugador {
         this.tipo = tipo;
     }
 
-    public Delantero(String tipo, String idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, Equipo equipo) {
-        super(idJugador, nombreJugador, fechaNac, numeroDorsal, posicion, equipo);
+    public Delantero(String tipo, int idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, int idEquipo, String nombreEquipo) {
+        super(idJugador, nombreJugador, fechaNac, numeroDorsal, posicion, idEquipo, nombreEquipo);
         this.tipo = tipo;
     }
+
 
     public String getTipo() {
         return tipo;

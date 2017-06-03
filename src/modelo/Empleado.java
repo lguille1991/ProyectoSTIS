@@ -4,26 +4,28 @@ package modelo;
  * @author 
  */
 public class Empleado {
-    private String idEmpleado;
+    private int idEmpleado;
     private String nombreEmpleado;
     private String cargo;
-    private Usuario usuario;
+    private int idUsuario;
+    private String contrasena;
 
     public Empleado() {
     }
 
-    public Empleado(String idEmpleado, String nombreEmpleado, String cargo, Usuario usuario) {
+    public Empleado(int idEmpleado, String nombreEmpleado, String cargo, int idUsuario, String contrasena) {
         this.idEmpleado = idEmpleado;
         this.nombreEmpleado = nombreEmpleado;
         this.cargo = cargo;
-        this.usuario = usuario;
+        this.idUsuario = idUsuario;
+        this.contrasena = contrasena;
     }
 
-    public String getIdEmpleado() {
+    public int getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(String idEmpleado) {
+    public void setIdEmpleado(int idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 
@@ -43,16 +45,25 @@ public class Empleado {
         this.cargo = cargo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }  
 
     @Override
     public String toString() {
-        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + ", cargo=" + cargo + ", usuario=" + usuario + '}';
-    }      
+        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + ", cargo=" + cargo + ", idUsuario=" + idUsuario + ", contrasena=" + contrasena + '}';
+    }
+      
 }

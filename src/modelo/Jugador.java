@@ -4,30 +4,32 @@ package modelo;
  * @author 
  */
 public class Jugador {
-    private String idJugador;
+    private int idJugador;
     private String nombreJugador;
     private String fechaNac;
     private int numeroDorsal;
     private String posicion;
-    private Equipo equipo;
+    private int idEquipo;
+    private String nombreEquipo;
 
     public Jugador() {
     }
 
-    public Jugador(String idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, Equipo equipo) {
+    public Jugador(int idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, int idEquipo, String nombreEquipo) {
         this.idJugador = idJugador;
         this.nombreJugador = nombreJugador;
         this.fechaNac = fechaNac;
         this.numeroDorsal = numeroDorsal;
         this.posicion = posicion;
-        this.equipo = equipo;
+        this.idEquipo = idEquipo;
+        this.nombreEquipo = nombreEquipo;
     }
 
-    public String getIdJugador() {
+    public int getIdJugador() {
         return idJugador;
     }
 
-    public void setIdJugador(String idJugador) {
+    public void setIdJugador(int idJugador) {
         this.idJugador = idJugador;
     }
 
@@ -63,16 +65,24 @@ public class Jugador {
         this.posicion = posicion;
     }
 
-    public Equipo getEquipo() {
-        return equipo;
+    public int getIdEquipo() {
+        return idEquipo;
     }
 
-    public void setEquipo(Equipo equipo) {
-        this.equipo = equipo;
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
     }
 
     @Override
     public String toString() {
-        return "Jugador{" + "idJugador=" + idJugador + ", nombreJugador=" + nombreJugador + ", fechaNac=" + fechaNac + ", numeroDorsal=" + numeroDorsal + ", posicion=" + posicion + ", equipo=" + equipo + '}';
+        return "Jugador{" + "idJugador=" + idJugador + ", nombreJugador=" + nombreJugador + ", fechaNac=" + fechaNac + ", numeroDorsal=" + numeroDorsal + ", posicion=" + posicion + ", idEquipo=" + idEquipo + ", nombreEquipo=" + nombreEquipo + '}';
     }
 }

@@ -4,22 +4,22 @@ package modelo;
  * @author
  */
 public class Nacionalidad {
-    private String idNacionalidad;
+    private int idNacionalidad;
     private String nombreNacionalidad;
 
     public Nacionalidad() {
     }
 
-    public Nacionalidad(String idNacionalidad, String nombreNacionalidad) {
+    public Nacionalidad(int idNacionalidad, String nombreNacionalidad) {
         this.idNacionalidad = idNacionalidad;
         this.nombreNacionalidad = nombreNacionalidad;
     }
 
-    public String getIdNacionalidad() {
+    public int getIdNacionalidad() {
         return idNacionalidad;
     }
 
-    public void setIdNacionalidad(String idNacionalidad) {
+    public void setIdNacionalidad(int idNacionalidad) {
         this.idNacionalidad = idNacionalidad;
     }
 

@@ -4,22 +4,22 @@ package modelo;
  * @author 
  */
 public class RolUsuario {
-    private String idRol;
+    private int idRol;
     private String idNombre;
 
     public RolUsuario() {
     }
 
-    public RolUsuario(String idRol, String idNombre) {
+    public RolUsuario(int idRol, String idNombre) {
         this.idRol = idRol;
         this.idNombre = idNombre;
     }
 
-    public String getIdRol() {
+    public int getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(String idRol) {
+    public void setIdRol(int idRol) {
         this.idRol = idRol;
     }
 

@@ -11,8 +11,8 @@ public class Volante extends Jugador {
         this.tipo = tipo;
     }
 
-    public Volante(String tipo, String idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, Equipo equipo) {
-        super(idJugador, nombreJugador, fechaNac, numeroDorsal, posicion, equipo);
+    public Volante(String tipo, int idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, int idEquipo, String nombreEquipo) {
+        super(idJugador, nombreJugador, fechaNac, numeroDorsal, posicion, idEquipo, nombreEquipo);
         this.tipo = tipo;
     }
 

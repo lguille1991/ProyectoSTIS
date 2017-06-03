@@ -4,7 +4,7 @@ package modelo;
  * @author 
  */
 public class Resultado {
-    private String idResultado;
+    private int idResultado;
     private TarjetaAmarilla amarillaLocal ;
     private TarjetaAmarilla amarillaVisita;
     private TarjetaRoja rojaLocal ;
@@ -23,7 +23,7 @@ public class Resultado {
     public Resultado() {
     }
 
-    public Resultado(String idResultado, TarjetaAmarilla amarillaLocal, TarjetaAmarilla amarillaVisita, TarjetaRoja rojaLocal, TarjetaRoja rojaVisita, Gol golLocal, Gol golVisita, Gol penaltieLocal, Gol penaltieVisita, int llegadaLocal, int llegadaVisita, int cornerLocal, int cornerVisita, Partido partido) {
+    public Resultado(int idResultado, TarjetaAmarilla amarillaLocal, TarjetaAmarilla amarillaVisita, TarjetaRoja rojaLocal, TarjetaRoja rojaVisita, Gol golLocal, Gol golVisita, Gol penaltieLocal, Gol penaltieVisita, int llegadaLocal, int llegadaVisita, int cornerLocal, int cornerVisita, Partido partido) {
         this.idResultado = idResultado;
         this.amarillaLocal = amarillaLocal;
         this.amarillaVisita = amarillaVisita;
@@ -40,11 +40,11 @@ public class Resultado {
         this.partido = partido;
     }
 
-    public String getIdResultado() {
+    public int getIdResultado() {
         return idResultado;
     }
 
-    public void setIdResultado(String idResultado) {
+    public void setIdResultado(int idResultado) {
         this.idResultado = idResultado;
     }
 
@@ -156,5 +156,5 @@ public class Resultado {
     public String toString() {
         return "Resultado{" + "idResultado=" + idResultado + ", amarillaLocal=" + amarillaLocal + ", amarillaVisita=" + amarillaVisita + ", rojaLocal=" + rojaLocal + ", rojaVisita=" + rojaVisita + ", golLocal=" + golLocal + ", golVisita=" + golVisita + ", penaltieLocal=" + penaltieLocal + ", penaltieVisita=" + penaltieVisita + ", llegadaLocal=" + llegadaLocal + ", llegadaVisita=" + llegadaVisita + ", cornerLocal=" + cornerLocal + ", cornerVisita=" + cornerVisita + ", partido=" + partido + '}';
     }
-
+    
 }

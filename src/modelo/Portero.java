@@ -11,8 +11,8 @@ public class Portero extends Jugador {
         this.tipo = tipo;
     }
 
-    public Portero(String tipo, String idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, Equipo equipo) {
-        super(idJugador, nombreJugador, fechaNac, numeroDorsal, posicion, equipo);
+    public Portero(String tipo, int idJugador, String nombreJugador, String fechaNac, int numeroDorsal, String posicion, int idEquipo, String nombreEquipo) {
+        super(idJugador, nombreJugador, fechaNac, numeroDorsal, posicion, idEquipo, nombreEquipo);
         this.tipo = tipo;
     }
 

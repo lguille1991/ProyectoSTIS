@@ -4,26 +4,30 @@ package modelo;
  * @author
  */
 public class Gol {
-    private String idGol;
+    private int idGol;
     private String minuto;
-    private TipoGol tipoGol;
-    private Jugador jugador;
+    private int idTipoGol;
+    private String nombreGol;
+    private int idJugador;
+    private String nombreJugador;
 
     public Gol() {
     }
 
-    public Gol(String idGol, String minuto, TipoGol tipoGol, Jugador jugador) {
+    public Gol(int idGol, String minuto, int idTipoGol, String nombreGol, int idJugador, String nombreJugador) {
         this.idGol = idGol;
         this.minuto = minuto;
-        this.tipoGol = tipoGol;
-        this.jugador = jugador;
+        this.idTipoGol = idTipoGol;
+        this.nombreGol = nombreGol;
+        this.idJugador = idJugador;
+        this.nombreJugador = nombreJugador;
     }
 
-    public String getIdGol() {
+    public int getIdGol() {
         return idGol;
     }
 
-    public void setIdGol(String idGol) {
+    public void setIdGol(int idGol) {
         this.idGol = idGol;
     }
 
@@ -35,24 +39,41 @@ public class Gol {
         this.minuto = minuto;
     }
 
-    public TipoGol getTipoGol() {
-        return tipoGol;
+    public int getIdTipoGol() {
+        return idTipoGol;
     }
 
-    public void setTipoGol(TipoGol tipoGol) {
-        this.tipoGol = tipoGol;
+    public void setIdTipoGol(int idTipoGol) {
+        this.idTipoGol = idTipoGol;
     }
 
-    public Jugador getJugador() {
-        return jugador;
+    public String getNombreGol() {
+        return nombreGol;
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void setNombreGol(String nombreGol) {
+        this.nombreGol = nombreGol;
+    }
+
+    public int getIdJugador() {
+        return idJugador;
+    }
+
+    public void setIdJugador(int idJugador) {
+        this.idJugador = idJugador;
+    }
+
+    public String getNombreJugador() {
+        return nombreJugador;
+    }
+
+    public void setNombreJugador(String nombreJugador) {
+        this.nombreJugador = nombreJugador;
     }
 
     @Override
     public String toString() {
-        return "Gol{" + "idGol=" + idGol + ", minuto=" + minuto + ", tipoGol=" + tipoGol + ", jugador=" + jugador + '}';
+        return "Gol{" + "idGol=" + idGol + ", minuto=" + minuto + ", idTipoGol=" + idTipoGol + ", nombreGol=" + nombreGol + ", idJugador=" + idJugador + ", nombreJugador=" + nombreJugador + '}';
     }
+
 }

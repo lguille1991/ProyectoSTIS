@@ -4,7 +4,7 @@ package modelo;
  * @author 
  */
 public class Clasificacion {
-    private String idClasificacion;
+    private int idClasificacion;
     private int partidosJugados;
     private int partidosGanados;
     private int partidosEmpatados;
@@ -13,12 +13,13 @@ public class Clasificacion {
     private int golesContra;
     private int diferenciaGoles;
     private int puntos;
-    private Equipo equipo;
+    private int idEquipo;
+    private String nombreEquipo;
 
     public Clasificacion() {
     }
 
-    public Clasificacion(String idClasificacion, int partidosJugados, int partidosGanados, int partidosEmpatados, int partidosPerdidos, int golesFavor, int golesContra, int diferenciaGoles, int puntos, Equipo equipo) {
+    public Clasificacion(int idClasificacion, int partidosJugados, int partidosGanados, int partidosEmpatados, int partidosPerdidos, int golesFavor, int golesContra, int diferenciaGoles, int puntos, int idEquipo, String nombreEquipo) {
         this.idClasificacion = idClasificacion;
         this.partidosJugados = partidosJugados;
         this.partidosGanados = partidosGanados;
@@ -28,14 +29,16 @@ public class Clasificacion {
         this.golesContra = golesContra;
         this.diferenciaGoles = diferenciaGoles;
         this.puntos = puntos;
-        this.equipo = equipo;
+        this.idEquipo = idEquipo;
+        this.nombreEquipo = nombreEquipo;
     }
+    
 
-    public String getIdClasificacion() {
+    public int getIdClasificacion() {
         return idClasificacion;
     }
 
-    public void setIdClasificacion(String idClasificacion) {
+    public void setIdClasificacion(int idClasificacion) {
         this.idClasificacion = idClasificacion;
     }
 
@@ -103,18 +106,25 @@ public class Clasificacion {
         this.puntos = puntos;
     }
 
-    public Equipo getEquipo() {
-        return equipo;
+    public int getIdEquipo() {
+        return idEquipo;
     }
 
-    public void setEquipo(Equipo equipo) {
-        this.equipo = equipo;
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
     }
 
     @Override
     public String toString() {
-        return "Clasificacion{" + "idClasificacion=" + idClasificacion + ", partidosJugados=" + partidosJugados + ", partidosGanados=" + partidosGanados + ", partidosEmpatados=" + partidosEmpatados + ", partidosPerdidos=" + partidosPerdidos + ", golesFavor=" + golesFavor + ", golesContra=" + golesContra + ", diferenciaGoles=" + diferenciaGoles + ", puntos=" + puntos + ", equipo=" + equipo + '}';
-    }
-
+        return "Clasificacion{" + "idClasificacion=" + idClasificacion + ", partidosJugados=" + partidosJugados + ", partidosGanados=" + partidosGanados + ", partidosEmpatados=" + partidosEmpatados + ", partidosPerdidos=" + partidosPerdidos + ", golesFavor=" + golesFavor + ", golesContra=" + golesContra + ", diferenciaGoles=" + diferenciaGoles + ", puntos=" + puntos + ", idEquipo=" + idEquipo + ", nombreEquipo=" + nombreEquipo + '}';
+    } 
     
 }

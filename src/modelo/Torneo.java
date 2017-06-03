@@ -4,7 +4,7 @@ package modelo;
  * @author 
  */
 public class Torneo {
-    private String idTorneo;
+    private int idTorneo;
     private String nombreTorneo;
     private String fechaInicio;
     private String fechaFinal;
@@ -14,7 +14,7 @@ public class Torneo {
     public Torneo() {
     }
 
-    public Torneo(String idTorneo, String nombreTorneo, String fechaInicio, String fechaFinal, int numeroEquipos, int numeroJornadas) {
+    public Torneo(int idTorneo, String nombreTorneo, String fechaInicio, String fechaFinal, int numeroEquipos, int numeroJornadas) {
         this.idTorneo = idTorneo;
         this.nombreTorneo = nombreTorneo;
         this.fechaInicio = fechaInicio;
@@ -23,11 +23,11 @@ public class Torneo {
         this.numeroJornadas = numeroJornadas;
     }
 
-    public String getIdTorneo() {
+    public int getIdTorneo() {
         return idTorneo;
     }
 
-    public void setIdTorneo(String idTorneo) {
+    public void setIdTorneo(int idTorneo) {
         this.idTorneo = idTorneo;
     }
 
@@ -74,5 +74,6 @@ public class Torneo {
     @Override
     public String toString() {
         return "Torneo{" + "idTorneo=" + idTorneo + ", nombreTorneo=" + nombreTorneo + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + ", numeroEquipos=" + numeroEquipos + ", numeroJornadas=" + numeroJornadas + '}';
-    }   
+    }
+ 
 }

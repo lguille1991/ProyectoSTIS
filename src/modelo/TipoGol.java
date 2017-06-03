@@ -4,22 +4,22 @@ package modelo;
  * @author 
  */
 public class TipoGol {
-    private String idTipoGol;
+    private int idTipoGol;
     private String nombreGol;
 
     public TipoGol() {
     }
 
-    public TipoGol(String idTipoGol, String nombreGol) {
+    public TipoGol(int idTipoGol, String nombreGol) {
         this.idTipoGol = idTipoGol;
         this.nombreGol = nombreGol;
     }
 
-    public String getIdTipoGol() {
+    public int getIdTipoGol() {
         return idTipoGol;
     }
 
-    public void setIdTipoGol(String idTipoGol) {
+    public void setIdTipoGol(int idTipoGol) {
         this.idTipoGol = idTipoGol;
     }
 
@@ -33,7 +33,7 @@ public class TipoGol {
 
     @Override
     public String toString() {
-        return "Tipo_Gol{" + "idTipoGol=" + idTipoGol + ", nombreGol=" + nombreGol + '}';
+        return "TipoGol{" + "idTipoGol=" + idTipoGol + ", nombreGol=" + nombreGol + '}';
     }
   
 }

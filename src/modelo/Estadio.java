@@ -4,22 +4,22 @@ package modelo;
  * @author 
  */
 public class Estadio {
-    private String idEstadio;
+    private int idEstadio;
     private String nombreEstadio;
 
     public Estadio() {
     }
 
-    public Estadio(String idEstadio, String nombreEstadio) {
+    public Estadio(int idEstadio, String nombreEstadio) {
         this.idEstadio = idEstadio;
         this.nombreEstadio = nombreEstadio;
     }
 
-    public String getIdEstadio() {
+    public int getIdEstadio() {
         return idEstadio;
     }
 
-    public void setIdEstadio(String idEstadio) {
+    public void setIdEstadio(int idEstadio) {
         this.idEstadio = idEstadio;
     }
 

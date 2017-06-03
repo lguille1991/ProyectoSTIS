@@ -4,46 +4,56 @@ package modelo;
  * @author
  */
 public class TarjetaAmarilla {
-    private String idTarjetaAmarilla;
-    private String minuto;
-    private Jugador jugador;
+    private int idTarjetaAmarilla;
+    private int minuto;
+    private int idJugador;
+    private String nombreJugador;
 
     public TarjetaAmarilla() {
     }
 
-    public TarjetaAmarilla(String idTarjetaAmarilla, String minuto, Jugador jugador) {
+    public TarjetaAmarilla(int idTarjetaAmarilla, int minuto, int idJugador, String nombreJugador) {
         this.idTarjetaAmarilla = idTarjetaAmarilla;
         this.minuto = minuto;
-        this.jugador = jugador;
+        this.idJugador = idJugador;
+        this.nombreJugador = nombreJugador;
     }
 
-    public String getIdTarjetaAmarilla() {
+    public int getIdTarjetaAmarilla() {
         return idTarjetaAmarilla;
     }
 
-    public void setIdTarjetaAmarilla(String idTarjetaAmarilla) {
+    public void setIdTarjetaAmarilla(int idTarjetaAmarilla) {
         this.idTarjetaAmarilla = idTarjetaAmarilla;
     }
 
-    public String getMinuto() {
+    public int getMinuto() {
         return minuto;
     }
 
-    public void setMinuto(String minuto) {
+    public void setMinuto(int minuto) {
         this.minuto = minuto;
     }
 
-    public Jugador getJugador() {
-        return jugador;
+    public int getIdJugador() {
+        return idJugador;
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void setIdJugador(int idJugador) {
+        this.idJugador = idJugador;
+    }
+
+    public String getNombreJugador() {
+        return nombreJugador;
+    }
+
+    public void setNombreJugador(String nombreJugador) {
+        this.nombreJugador = nombreJugador;
     }
 
     @Override
     public String toString() {
-        return "TarjetaAmarilla{" + "idTarjetaAmarilla=" + idTarjetaAmarilla + ", minuto=" + minuto + ", jugador=" + jugador + '}';
+        return "TarjetaAmarilla{" + "idTarjetaAmarilla=" + idTarjetaAmarilla + ", minuto=" + minuto + ", idJugador=" + idJugador + ", nombreJugador=" + nombreJugador + '}';
     }
  
 }
