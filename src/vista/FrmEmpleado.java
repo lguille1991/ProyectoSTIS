@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.Validaciones;
 import java.awt.event.KeyEvent;
 
 /**
@@ -16,6 +17,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmEmpleado
      */
+    Validaciones val=new Validaciones();
     public FrmEmpleado() {
         initComponents();
     }
@@ -166,10 +168,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
 
     private void jTxtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoKeyTyped
         //Validación sólo números
-        Character s = evt.getKeyChar();
-        if(!Character.isDigit(s)){
-            evt.consume();
-        }
+        val.validarNumero(evt);
     }//GEN-LAST:event_jTxtCodigoKeyTyped
 
     private void jTxtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNombreKeyTyped
