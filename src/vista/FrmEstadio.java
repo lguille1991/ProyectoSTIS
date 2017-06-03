@@ -338,7 +338,7 @@ public void insertar(){
             modificar();
             habilitarInput(false,false);
             }else if(nuevo==0 && this.jTxtNombre.getText().equals("")){
-                JOptionPane.showMessageDialog(rootPane, "Clic en NUEVO para ingresar un empleado", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Clic en NUEVO para ingresar un estadio", "ERROR", JOptionPane.ERROR_MESSAGE);
             }else if(editar==0 && nuevo==0){
                 JOptionPane.showMessageDialog(rootPane, "Clic en EDITAR para guardar los cambios ó en NUEVO para crear un nuevo registro", "ERROR", JOptionPane.ERROR_MESSAGE);
             }

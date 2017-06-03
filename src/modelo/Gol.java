@@ -5,22 +5,26 @@ package modelo;
  */
 public class Gol {
     private int idGol;
-    private String minuto;
     private int idTipoGol;
     private String nombreGol;
+    private int idEquipo;
+    private String nombreEquipo;
     private int idJugador;
     private String nombreJugador;
+    private int minuto;
 
     public Gol() {
     }
 
-    public Gol(int idGol, String minuto, int idTipoGol, String nombreGol, int idJugador, String nombreJugador) {
+    public Gol(int idGol, int idTipoGol, String nombreGol, int idEquipo, String nombreEquipo, int idJugador, String nombreJugador, int minuto) {
         this.idGol = idGol;
-        this.minuto = minuto;
         this.idTipoGol = idTipoGol;
         this.nombreGol = nombreGol;
+        this.idEquipo = idEquipo;
+        this.nombreEquipo = nombreEquipo;
         this.idJugador = idJugador;
         this.nombreJugador = nombreJugador;
+        this.minuto = minuto;
     }
 
     public int getIdGol() {
@@ -29,14 +33,6 @@ public class Gol {
 
     public void setIdGol(int idGol) {
         this.idGol = idGol;
-    }
-
-    public String getMinuto() {
-        return minuto;
-    }
-
-    public void setMinuto(String minuto) {
-        this.minuto = minuto;
     }
 
     public int getIdTipoGol() {
@@ -55,6 +51,22 @@ public class Gol {
         this.nombreGol = nombreGol;
     }
 
+    public int getIdEquipo() {
+        return idEquipo;
+    }
+
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
     public int getIdJugador() {
         return idJugador;
     }
@@ -71,9 +83,11 @@ public class Gol {
         this.nombreJugador = nombreJugador;
     }
 
-    @Override
-    public String toString() {
-        return "Gol{" + "idGol=" + idGol + ", minuto=" + minuto + ", idTipoGol=" + idTipoGol + ", nombreGol=" + nombreGol + ", idJugador=" + idJugador + ", nombreJugador=" + nombreJugador + '}';
+    public int getMinuto() {
+        return minuto;
     }
 
+    public void setMinuto(int minuto) {
+        this.minuto = minuto;
+    }
 }
