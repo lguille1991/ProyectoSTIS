@@ -383,8 +383,10 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
             }else if(editar==1){
             modificar();
             habilitarInput(false,false);
-            }else if(nuevo==0){
+            }else if(nuevo==0 && this.jTxtNombre.getText().equals("")){
                 JOptionPane.showMessageDialog(rootPane, "Clic en NUEVO para ingresar un empleado", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }else if(editar==0 && nuevo==0){
+                JOptionPane.showMessageDialog(rootPane, "Clic en EDITAR para guardar los cambios ó en NUEVO para crear un nuevo registro", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BtnGuardarMouseClicked
@@ -413,7 +415,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     private void BtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnNuevoMouseClicked
         habilitarInput(true,false);
         limpiar();
-        nuevo=0;
+        nuevo=1;
     }//GEN-LAST:event_BtnNuevoMouseClicked
 
     private void BtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCancelarMouseClicked
