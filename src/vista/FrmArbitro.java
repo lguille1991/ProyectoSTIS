@@ -376,13 +376,13 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
                 if (jComboBuscar.getSelectedItem().equals("Código")){               
                  tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 0));
                 } else if (jComboBuscar.getSelectedItem().equals("Nombre")){               
-                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 3));
-                } else if (jComboBuscar.getSelectedItem().equals("Tipo")){               
-                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 5));
-                } else if (jComboBuscar.getSelectedItem().equals("Fecha Nacimiento")){               
-                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 4));
-                } else if (jComboBuscar.getSelectedItem().equals("Nacionalidad")){               
                  tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 2));
+                } else if (jComboBuscar.getSelectedItem().equals("Tipo")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 4));
+                } else if (jComboBuscar.getSelectedItem().equals("Fecha Nacimiento")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 3));
+                } else if (jComboBuscar.getSelectedItem().equals("Nacionalidad")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
                 }
             }
         });
