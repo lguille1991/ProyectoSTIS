@@ -27,5 +27,10 @@ public class ControlEstadio implements OperacionesEmpleado{
     public List mostrarEmpleado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List llenarComboBox() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

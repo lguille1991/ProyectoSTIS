@@ -10,5 +10,6 @@ public interface OperacionesEmpleado {
     public String agregarEmpleado(Object obj);
     public String modificarEmpleado(Object obj);
     public String eliminarEmpleado(Object obj);
+    public List llenarComboBox();
     public List mostrarEmpleado();
 }

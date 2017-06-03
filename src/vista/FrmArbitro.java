@@ -185,6 +185,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Buscar:");
 
+        jTxtBusqueda.setEnabled(false);
         jTxtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtBusquedaKeyTyped(evt);
@@ -192,6 +193,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         });
 
         jComboBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Código", "Nombre", "Tipo", "Fecha Nacimiento", "Nacionalidad" }));
+        jComboBuscar.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -518,6 +520,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         this.jTxtFechaNac.setEnabled(opcion);
         this.jComboNacionalidad.setEnabled(opcion);
         this.jTxtBusqueda.setEnabled(opcion2);
+        this.jComboBuscar.setEnabled(opcion2);
         return opcion;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

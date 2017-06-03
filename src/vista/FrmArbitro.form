@@ -373,6 +373,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtBusqueda">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtBusquedaKeyTyped"/>
       </Events>
@@ -389,6 +392,7 @@
             <StringItem index="5" value="Nacionalidad"/>
           </StringArray>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
