@@ -85,7 +85,6 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         Usuario us = new Usuario();
         ControlUsuario cu = new ControlUsuario();
         try{
-            us.setIdUsuario(Integer.parseInt(this.jTxtUsuario.getText()));
             us.setContrasena(this.jTxtContrasena.getText());
             us.setIdRol(Integer.parseInt(this.jTxtIdRol.getText()));
             us.setIdEmpleado(Integer.parseInt(this.jTxtIdEmpleado.getText()));
