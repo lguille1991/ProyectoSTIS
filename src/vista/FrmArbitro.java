@@ -415,15 +415,14 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         }              
   }
   
-  public void llenarTxtNacion(){
-      ControlArbitro ca = new ControlArbitro();
-      String nombreNacion = "";
-      nombreNacion = this.jComboNacionalidad.getSelectedItem().toString();
-      int idNacion;
-      idNacion = ca.llenarId(nombreNacion);
-      
-      this.jTxtIdNacion.setText(String.valueOf(idNacion));
-  }
+    public void llenarTxtNacion(){
+        ControlArbitro ca = new ControlArbitro();
+        String nombreNacion = "";
+        nombreNacion = this.jComboNacionalidad.getSelectedItem().toString();
+        int idNacion;
+        idNacion = ca.llenarId(nombreNacion);
+        this.jTxtIdNacion.setText(String.valueOf(idNacion));
+    }
   
   public void insertar(){
         Arbitro ar = new Arbitro();

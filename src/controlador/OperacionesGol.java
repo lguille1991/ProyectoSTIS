@@ -13,7 +13,7 @@ public interface OperacionesGol {
     public List mostrarGol();
     public List llenarComboBoxTipo();
     public List llenarComboBoxEquipo();
-    public List llenarComboBoxJugador();
+    public List llenarComboBoxJugador(int idEquipo);
     public int llenarIdTipo(String nombreTipoGol);
     public int llenarIdEquipo(String nombreEquipo);
     public int llenarIdJugador(String nombreJugador);

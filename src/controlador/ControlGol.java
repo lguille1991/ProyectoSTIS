@@ -104,7 +104,7 @@ public class ControlGol implements OperacionesGol{
                 listagoles.add(new Gol(
                         res.getInt("idGol"),
                         res.getInt("idTipoGol"),
-                        res.getString("nombreGol"),
+                        res.getString("nombreTipoGol"),
                         res.getInt("idEquipo"),
                         res.getString("nombreEquipo"),
                         res.getInt("idJugador"),
@@ -123,17 +123,98 @@ public class ControlGol implements OperacionesGol{
 
     @Override
     public int llenarIdTipo(String nombreTipoGol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion con = new Conexion();
+        Connection cn;
+        PreparedStatement pre;
+        ResultSet res;
+        Statement st;
+        String sql;
+        int idTipo = 0;
+        
+        try{
+            Class.forName(con.getDriver());
+            cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
+            sql="select idTipo_Gol from tipo_gol where nombreTipoGol = '"+nombreTipoGol+"'";
+            st=cn.prepareStatement(sql);
+            res = st.executeQuery(sql);
+            
+            while(res.next()){
+               idTipo = res.getInt("idTipo_Gol");     
+            }  
+        
+            res.close();
+            cn.close();
+            st.close();
+            
+        }catch(Exception e)
+        {
+            e.toString();
+        }
+        return idTipo;
     }
 
     @Override
     public int llenarIdEquipo(String nombreEquipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion con = new Conexion();
+        Connection cn;
+        PreparedStatement pre;
+        ResultSet res;
+        Statement st;
+        String sql;
+        int idEquipo = 0;
+        
+        try{
+            Class.forName(con.getDriver());
+            cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
+            sql="select idEquipo from equipo where nombreEquipo = '"+nombreEquipo+"'";
+            st=cn.prepareStatement(sql);
+            res = st.executeQuery(sql);
+            
+            while(res.next()){
+               idEquipo = res.getInt("idEquipo");     
+            }  
+        
+            res.close();
+            cn.close();
+            st.close();
+            
+        }catch(Exception e)
+        {
+            e.toString();
+        }
+        return idEquipo;
     }
 
     @Override
     public int llenarIdJugador(String nombreJugador) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion con = new Conexion();
+        Connection cn;
+        PreparedStatement pre;
+        ResultSet res;
+        Statement st;
+        String sql;
+        int idJugador = 0;
+        
+        try{
+            Class.forName(con.getDriver());
+            cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
+            sql="select idJugador from jugador where nombreJugador = '"+nombreJugador+"'";
+            st=cn.prepareStatement(sql);
+            res = st.executeQuery(sql);
+            
+            while(res.next()){
+               idJugador = res.getInt("idJugador");     
+            }  
+        
+            res.close();
+            cn.close();
+            st.close();
+            
+        }catch(Exception e)
+        {
+            e.toString();
+        }
+        return idJugador; 
     }   
 
     @Override
@@ -193,7 +274,7 @@ public class ControlGol implements OperacionesGol{
     }
 
     @Override
-    public List llenarComboBoxJugador() {
+    public List llenarComboBoxJugador(int idEquipo) {
         Conexion con = new Conexion();
         Connection cn;
         PreparedStatement pre;
@@ -204,7 +285,7 @@ public class ControlGol implements OperacionesGol{
       try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
-            sql="select * from jugador";
+            sql="select nombreJugador from jugador where idEquipo="+idEquipo+"";
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
             while(res.next()){

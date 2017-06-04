@@ -125,7 +125,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
         }              
-  }
+    }
     
     public void limpiar(){
         this.jTxtCodigo.setText("");

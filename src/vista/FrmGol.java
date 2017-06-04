@@ -1,24 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
+import controlador.ControlGol;
+import controlador.Validaciones;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import modelo.Gol;
+import java.sql.*;
+import javax.swing.RowFilter;
 
 /**
  *
- * @author lguil
+ * @author Luis Martinez
  */
 public class FrmGol extends javax.swing.JInternalFrame {
-
+    private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
+    private int nuevo=0;//Bandera para determinar evitar que se ingrese el mismo registro más de una vez
+    TableRowSorter tbs ;
+    DefaultTableModel model;
+    Validaciones val = new Validaciones();
     /**
      * Creates new form FrmGol
      */
     public FrmGol() {
         initComponents();
+        mostrar();
+        llenarComboTipo();
+        llenarComboEquipo();
+        //llenarComboJugador();
+        llenarTxtIdTipo();
+        llenarTxtIdEquipo();
+        llenarTxtIdJugador();
     }
 
     /**
@@ -47,11 +65,14 @@ public class FrmGol extends javax.swing.JInternalFrame {
         BtnEliminar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablaGol = new javax.swing.JTable();
         BtnNuevo = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jComboBuscar = new javax.swing.JComboBox<>();
         jTxtBusqueda = new javax.swing.JTextField();
+        jTxtIdTipo = new javax.swing.JTextField();
+        jTxtIdEquipo = new javax.swing.JTextField();
+        jTxtIdJugador = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -70,43 +91,85 @@ public class FrmGol extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Jugador:");
 
+        jTxtCodigo.setEnabled(false);
         jTxtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtCodigoKeyTyped(evt);
             }
         });
 
+        jTxtMinuto.setEnabled(false);
         jTxtMinuto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtMinutoKeyTyped(evt);
             }
         });
 
-        jComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elija uno", "Normal", "Penaltie" }));
+        jComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
+        jComboTipo.setEnabled(false);
+        jComboTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboTipoItemStateChanged(evt);
+            }
+        });
 
-        jComboEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elija uno", "Alianza", "Águila", "FAS", "Firpo" }));
+        jComboEquipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
+        jComboEquipo.setEnabled(false);
         jComboEquipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboEquipoItemStateChanged(evt);
             }
         });
 
+        jComboJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
+        jComboJugador.setEnabled(false);
+        jComboJugador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboJugadorItemStateChanged(evt);
+            }
+        });
+
         BtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         BtnBuscar.setText("Buscar");
+        BtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscarMouseClicked(evt);
+            }
+        });
 
         BtnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
         BtnEditar.setText("Editar");
+        BtnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEditarMouseClicked(evt);
+            }
+        });
 
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGuardarMouseClicked(evt);
+            }
+        });
 
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
         BtnEliminar.setText("Eliminar");
+        BtnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEliminarMouseClicked(evt);
+            }
+        });
 
         BtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
         BtnCancelar.setText("Cancelar");
+        BtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCancelarMouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablaGol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -117,63 +180,89 @@ public class FrmGol extends javax.swing.JInternalFrame {
                 "Código", "Minuto", "Tipo", "Equipo", "Jugador"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTablaGol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaGolMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTablaGol);
 
         BtnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
         BtnNuevo.setText("Nuevo");
+        BtnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnNuevoMouseClicked(evt);
+            }
+        });
 
         jLabel7.setText("Busqueda:");
 
-        jComboBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Código", "Jugador", "Equipo", "Tipo", "Minuto" }));
+        jComboBuscar.setEnabled(false);
+
+        jTxtBusqueda.setEnabled(false);
+        jTxtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtBusquedaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(176, 176, 176)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6))
+                            .addGap(26, 26, 26)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTxtCodigo)
+                                .addComponent(jTxtMinuto)
+                                .addComponent(jComboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboEquipo, 0, 185, Short.MAX_VALUE)
+                                .addComponent(jComboJugador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(39, 39, 39)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(BtnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(BtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(BtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jComboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTxtCodigo)
-                            .addComponent(jTxtMinuto)
-                            .addComponent(jComboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboEquipo, 0, 185, Short.MAX_VALUE)
-                            .addComponent(jComboJugador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(BtnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(BtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(BtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)))
+                        .addComponent(jTxtIdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTxtIdEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTxtIdJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -214,57 +303,304 @@ public class FrmGol extends javax.swing.JInternalFrame {
                     .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtIdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtIdEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtIdJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void insertar(){
+        Gol go = new Gol();
+        ControlGol cg = new ControlGol();
+        try{
+            go.setIdTipoGol(Integer.parseInt(this.jTxtIdTipo.getText()));
+            go.setIdJugador(Integer.parseInt(this.jTxtIdJugador.getText()));
+            go.setMinuto(Integer.parseInt(this.jTxtMinuto.getText()));
+            String msj=cg.agregarGol(go);
+            JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+            mostrar();
+            limpiar();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void modificar(){
+        Gol go = new Gol();
+        ControlGol cg = new ControlGol();
+        try{
+            go.setIdGol(Integer.parseInt(this.jTxtCodigo.getText()));
+            go.setIdTipoGol(Integer.parseInt(this.jTxtIdTipo.getText()));
+            go.setIdJugador(Integer.parseInt(this.jTxtIdJugador.getText()));
+            go.setMinuto(Integer.parseInt(this.jTxtMinuto.getText()));
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea modificar el registro", "Modificar gol", JOptionPane.YES_NO_OPTION);
+            if(SiONo==0){
+                String msj=cg.modificarGol(go);
+                JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                mostrar();
+                limpiar();
+            }else{
+                limpiar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }    
+    }
+    
+    public void eliminar(){
+        Gol go = new Gol();
+        ControlGol cg = new ControlGol();
+        try{
+            go.setIdGol(Integer.parseInt(this.jTxtCodigo.getText()));
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Eliminar gol", JOptionPane.YES_NO_OPTION);
+            if(SiONo==0){
+                String msj=cg.eliminarGol(go);
+                JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                mostrar();
+                limpiar();
+            }else{
+                limpiar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public DefaultTableModel mostrar(){
+        String []columnas={"Código gol","Tipo","Minuto","Jugador","Equipo"};
+        Object[]obj=new Object[5];
+        DefaultTableModel tabla = new DefaultTableModel(null,columnas);
+        Gol go = new Gol();
+        ControlGol cg = new ControlGol();
+        List ls;
+        try{
+            ls=cg.mostrarGol();
+            for(int i=0;i<ls.size();i++){
+                go=(Gol)ls.get(i);
+                obj[0]=go.getIdGol();
+                obj[1]=go.getNombreGol();
+                obj[2]=go.getMinuto();
+                obj[3]=go.getNombreJugador();
+                obj[4]=go.getNombreEquipo();
+                tabla.addRow(obj);
+            }
+            ls=cg.mostrarGol();
+            this.jTablaGol.setModel(tabla);
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }
+        return tabla;
+    }
+    
+    public void llenarComboTipo(){
+        ControlGol cg = new ControlGol();
+        List lista;
+        Object item;
+          try{
+            lista  = cg.llenarComboBoxTipo();
+            for (int i=0;i<lista.size();i++) {
+                item= lista.get(i);
+                jComboTipo.addItem(item.toString());
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }              
+    }
+    
+    public void llenarComboEquipo(){
+        ControlGol cg = new ControlGol();
+        List lista;
+        Object item;
+          try{
+            lista  = cg.llenarComboBoxEquipo();
+            for (int i=0;i<lista.size();i++) {
+                item= lista.get(i);
+                jComboEquipo.addItem(item.toString());
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }              
+    }
+    
+    public void llenarComboJugador(int idEquipo){
+        ControlGol cg = new ControlGol();
+        List lista;
+        Object item;
+          try{
+            lista  = cg.llenarComboBoxJugador(idEquipo);
+            for (int i=0;i<lista.size();i++) {
+                item= lista.get(i);
+                jComboJugador.addItem(item.toString());
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }              
+    }
+    
+    public void llenarTxtIdTipo(){
+        ControlGol cg = new ControlGol();
+        String nombreTipo = "";
+        nombreTipo = this.jComboTipo.getSelectedItem().toString();
+        int idTipo;
+        idTipo = cg.llenarIdTipo(nombreTipo);
+        this.jTxtIdTipo.setText(String.valueOf(idTipo));
+    }
+    
+    public void llenarTxtIdEquipo(){
+        ControlGol cg = new ControlGol();
+        String nombreEquipo = "";
+        nombreEquipo = this.jComboEquipo.getSelectedItem().toString();
+        int idEquipo;
+        idEquipo = cg.llenarIdEquipo(nombreEquipo);
+        this.jTxtIdEquipo.setText(String.valueOf(idEquipo));
+    }
+    
+    public void llenarTxtIdJugador(){
+        ControlGol cg = new ControlGol();
+        String nombreJugador = "";
+        nombreJugador = this.jComboJugador.getSelectedItem().toString();
+        int idJugador;
+        idJugador = cg.llenarIdEquipo(nombreJugador);
+        this.jTxtIdJugador.setText(String.valueOf(idJugador));
+    }
+    
+    public void limpiar(){
+        this.jTxtCodigo.setText("");
+        this.jTxtMinuto.setText("");
+        this.jComboTipo.setSelectedIndex(0);
+        this.jComboEquipo.setSelectedIndex(0);
+        this.jComboJugador.setSelectedIndex(0);
+    }
+    
+    public boolean habilitarInput(boolean opcion, boolean opcion2){//Habilita o deshabilita los campos del formulario
+        this.jTxtMinuto.setEnabled(opcion);
+        this.jComboTipo.setEnabled(opcion);
+        this.jComboEquipo.setEnabled(opcion);
+        this.jComboJugador.setEnabled(opcion);
+        this.jTxtBusqueda.setEnabled(opcion2);
+        this.jComboBuscar.setEnabled(opcion2);
+        return opcion;
+    }
+    
     private void jTxtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoKeyTyped
         //Validación solo números
-        Character s = evt.getKeyChar();
-        if(!Character.isDigit(s)){
-            evt.consume();
-        }
+        val.validarNumero(evt);
     }//GEN-LAST:event_jTxtCodigoKeyTyped
 
     private void jTxtMinutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtMinutoKeyTyped
         //Validación solo números
-        Character s = evt.getKeyChar();
-        if(!Character.isDigit(s)){
-            evt.consume();
-        }
+        val.validarNumero(evt);
     }//GEN-LAST:event_jTxtMinutoKeyTyped
 
     private void jComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboEquipoItemStateChanged
-        // Dinamic combobox jugador
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-            if(this.jComboEquipo.getSelectedIndex()>0){
-                    this.jComboJugador.setModel(new DefaultComboBoxModel(this.llenarJugador(this.jComboEquipo.getSelectedItem().toString())));
-            }
-        }
+//        // Dinamic combobox jugador
+//        ControlGol cg = new ControlGol();
+//        if(evt.getStateChange() == ItemEvent.SELECTED){
+//            if(this.jComboEquipo.getSelectedIndex()>0){
+//                    this.jComboJugador.setModel(new DefaultComboBoxModel(cg.llenarComboBoxJugador(Integer.parseInt(this.jTxtIdEquipo.getText())));
+//            }
+//        }
+        llenarTxtIdEquipo();
     }//GEN-LAST:event_jComboEquipoItemStateChanged
 
-    public String[] llenarJugador(String equipo){
-        String jugador[] = new String[2];
-        if(equipo.equalsIgnoreCase("Águila")){
-            jugador[0] = "Luis Martinez";
-            jugador[1] = "Majo Betancourt";
+    private void jComboTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboTipoItemStateChanged
+        llenarTxtIdTipo();
+    }//GEN-LAST:event_jComboTipoItemStateChanged
+
+    private void jComboJugadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboJugadorItemStateChanged
+        llenarTxtIdJugador();
+    }//GEN-LAST:event_jComboJugadorItemStateChanged
+
+    private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
+        if(nuevo==1 && this.jTxtMinuto.getText().equals("") && this.jComboTipo.getSelectedItem().toString().equals("Seleccione uno")){//No permite guardar si el campo está vacío
+            JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            habilitarInput(true,false);
+        }else{
+            if(editar==0 && nuevo==1){
+                insertar();
+                habilitarInput(false,false);
+            }else if(editar==1){
+            modificar();
+            habilitarInput(false,false);
+            }else if(nuevo==0 && this.jTxtMinuto.getText().equals("")){
+                JOptionPane.showMessageDialog(rootPane, "Clic en NUEVO para ingresar un gol", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }else if(editar==0 && nuevo==0){
+                JOptionPane.showMessageDialog(rootPane, "Clic en EDITAR para guardar los cambios ó en NUEVO para crear un nuevo registro", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        if(equipo.equalsIgnoreCase("Alianza")){
-            jugador[0] = "Alexis Alvarado";
-            jugador[1] = "Carlos Martinez";
+    }//GEN-LAST:event_BtnGuardarMouseClicked
+
+    private void BtnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEditarMouseClicked
+        if(this.jTxtMinuto.getText().equals("")){//No permite editar sin haber seleccionado un registro
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a editar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            habilitarInput(true,false);
+            editar=1;        
         }
-        if(equipo.equalsIgnoreCase("FAS")){
-            jugador[0] = "Fernando Ortiz";
-            jugador[1] = "Majo Betancourt";
+    }//GEN-LAST:event_BtnEditarMouseClicked
+
+    private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
+        if(this.jTxtMinuto.getText().equals("")){//No permite eliminar sin haber seleccionado un registro
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            eliminar();
         }
-        if(equipo.equalsIgnoreCase("Firpo")){
-            jugador[0] = "Guillermo Abrego";
-            jugador[1] = "José Betancourt";
-        }
-        return jugador;
-    }    
+    }//GEN-LAST:event_BtnEliminarMouseClicked
+
+    private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
+        habilitarInput(false,true);
+    }//GEN-LAST:event_BtnBuscarMouseClicked
+
+    private void BtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnNuevoMouseClicked
+        habilitarInput(true,false);
+        limpiar();
+        nuevo=1;
+    }//GEN-LAST:event_BtnNuevoMouseClicked
+
+    private void BtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCancelarMouseClicked
+        habilitarInput(false,true);
+        limpiar();
+        nuevo=0;
+    }//GEN-LAST:event_BtnCancelarMouseClicked
+
+    private void jTablaGolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaGolMouseClicked
+        int fila=this.jTablaGol.getSelectedRow();
+        this.jTxtCodigo.setText(String.valueOf(this.jTablaGol.getValueAt(fila, 0)));
+        this.jComboTipo.setSelectedItem(String.valueOf(this.jTablaGol.getValueAt(fila, 1).toString()));
+        this.jTxtMinuto.setText(String.valueOf(this.jTablaGol.getValueAt(fila, 2)));
+        this.jComboJugador.setSelectedItem(String.valueOf(this.jTablaGol.getValueAt(fila, 3).toString()));
+        this.jComboEquipo.setSelectedItem(String.valueOf(this.jTablaGol.getValueAt(fila, 4).toString()));
+    }//GEN-LAST:event_jTablaGolMouseClicked
+
+    private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
+        this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (jComboBuscar.getSelectedItem().equals("Código")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 0));
+                }else if (jComboBuscar.getSelectedItem().equals("Tipo")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
+                }else if (jComboBuscar.getSelectedItem().equals("Minuto")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 2));
+                }else if (jComboBuscar.getSelectedItem().equals("Jugador")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 3));
+                }else if (jComboBuscar.getSelectedItem().equals("Equipo")){               
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 4));
+                }
+            }
+        });
+        DefaultTableModel tablas = mostrar();
+        tbs = new TableRowSorter(tablas);
+        this.jTablaGol.setRowSorter(tbs);
+    }//GEN-LAST:event_jTxtBusquedaKeyTyped
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
@@ -285,9 +621,12 @@ public class FrmGol extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablaGol;
     private javax.swing.JTextField jTxtBusqueda;
     private javax.swing.JTextField jTxtCodigo;
+    private javax.swing.JTextField jTxtIdEquipo;
+    private javax.swing.JTextField jTxtIdJugador;
+    private javax.swing.JTextField jTxtIdTipo;
     private javax.swing.JTextField jTxtMinuto;
     // End of variables declaration//GEN-END:variables
 }
