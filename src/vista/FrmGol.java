@@ -36,7 +36,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
         //llenarComboJugador();
         llenarTxtIdTipo();
         llenarTxtIdEquipo();
-        llenarTxtIdJugador();
+//        llenarTxtIdJugador();
     }
 
     /**
@@ -428,10 +428,12 @@ public class FrmGol extends javax.swing.JInternalFrame {
         }              
     }
     
-    public void llenarComboJugador(int idEquipo){
+    public void llenarComboJugador(){
+        llenarTxtIdEquipo();
         ControlGol cg = new ControlGol();
         List lista;
         Object item;
+        int idEquipo = (Integer.parseInt(this.jTxtIdEquipo.getText()));
           try{
             lista  = cg.llenarComboBoxJugador(idEquipo);
             for (int i=0;i<lista.size();i++) {
@@ -461,14 +463,14 @@ public class FrmGol extends javax.swing.JInternalFrame {
         this.jTxtIdEquipo.setText(String.valueOf(idEquipo));
     }
     
-    public void llenarTxtIdJugador(){
-        ControlGol cg = new ControlGol();
-        String nombreJugador = "";
-        nombreJugador = this.jComboJugador.getSelectedItem().toString();
-        int idJugador;
-        idJugador = cg.llenarIdEquipo(nombreJugador);
-        this.jTxtIdJugador.setText(String.valueOf(idJugador));
-    }
+//    public void llenarTxtIdJugador(){
+//        ControlGol cg = new ControlGol();
+//        String nombreJugador = "";
+//        nombreJugador = this.jComboJugador.getSelectedItem().toString();
+//        int idJugador;
+//        idJugador = cg.llenarIdEquipo(nombreJugador);
+//        this.jTxtIdJugador.setText(String.valueOf(idJugador));
+//    }
     
     public void limpiar(){
         this.jTxtCodigo.setText("");
@@ -500,12 +502,11 @@ public class FrmGol extends javax.swing.JInternalFrame {
 
     private void jComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboEquipoItemStateChanged
         // Dinamic combobox jugador
-//        ControlGol cg = new ControlGol();
-//        if(evt.getStateChange() == ItemEvent.SELECTED){
-//            if(this.jComboEquipo.getSelectedIndex()>0){
-//                    this.jComboJugador.setModel(new DefaultComboBoxModel(cg.llenarComboBoxJugador(Integer.parseInt(this.jTxtIdEquipo.getText())));
-//            }
-//        }
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(this.jComboEquipo.getSelectedIndex()>0){
+                   llenarComboJugador();
+            }
+        }
         llenarTxtIdEquipo();
     }//GEN-LAST:event_jComboEquipoItemStateChanged
 
@@ -514,7 +515,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboTipoItemStateChanged
 
     private void jComboJugadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboJugadorItemStateChanged
-        llenarTxtIdJugador();
+//        llenarTxtIdJugador();
     }//GEN-LAST:event_jComboJugadorItemStateChanged
 
     private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked

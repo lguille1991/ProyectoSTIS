@@ -285,13 +285,12 @@ public class ControlGol implements OperacionesGol{
       try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
-            sql="select nombreJugador from jugador where idEquipo="+idEquipo+"";
+            sql="select * from jugador where idEquipo="+idEquipo;
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
             while(res.next()){
                jugador.add(res.getString("nombreJugador"));     
             }  
-        
             res.close();
             cn.close();
             st.close();
