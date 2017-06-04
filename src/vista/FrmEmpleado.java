@@ -434,6 +434,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
         if(jComboBuscar.getSelectedItem().equals("Seleccione uno")){
             JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un criterio de busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            evt.consume();
         }else{
             this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
             @Override

@@ -5,14 +5,11 @@ import controlador.Validaciones;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.Gol;
-import java.sql.*;
 import javax.swing.RowFilter;
 
 /**
@@ -33,10 +30,9 @@ public class FrmGol extends javax.swing.JInternalFrame {
         mostrar();
         llenarComboTipo();
         llenarComboEquipo();
-        //llenarComboJugador();
         llenarTxtIdTipo();
         llenarTxtIdEquipo();
-//        llenarTxtIdJugador();
+        llenarTxtIdJugador();
     }
 
     /**
@@ -255,14 +251,14 @@ public class FrmGol extends javax.swing.JInternalFrame {
                                     .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jTxtIdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtIdEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtIdJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTxtIdJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -308,7 +304,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
                     .addComponent(jTxtIdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtIdEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtIdJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -372,6 +368,9 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }
     
     public DefaultTableModel mostrar(){
+        this.jTxtIdTipo.setVisible(false);
+        this.jTxtIdEquipo.setVisible(false);
+        this.jTxtIdJugador.setVisible(false);
         String []columnas={"Código gol","Tipo","Minuto","Jugador","Equipo"};
         Object[]obj=new Object[5];
         DefaultTableModel tabla = new DefaultTableModel(null,columnas);
@@ -429,7 +428,6 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }
     
     public void llenarComboJugador(){
-        llenarTxtIdEquipo();
         ControlGol cg = new ControlGol();
         List lista;
         Object item;
@@ -463,14 +461,14 @@ public class FrmGol extends javax.swing.JInternalFrame {
         this.jTxtIdEquipo.setText(String.valueOf(idEquipo));
     }
     
-//    public void llenarTxtIdJugador(){
-//        ControlGol cg = new ControlGol();
-//        String nombreJugador = "";
-//        nombreJugador = this.jComboJugador.getSelectedItem().toString();
-//        int idJugador;
-//        idJugador = cg.llenarIdEquipo(nombreJugador);
-//        this.jTxtIdJugador.setText(String.valueOf(idJugador));
-//    }
+    public void llenarTxtIdJugador(){
+        ControlGol cg = new ControlGol();
+        String nombreJugador = "";
+        nombreJugador = this.jComboJugador.getSelectedItem().toString();
+        int idJugador;
+        idJugador = cg.llenarIdJugador(nombreJugador);
+        this.jTxtIdJugador.setText(String.valueOf(idJugador));
+    }
     
     public void limpiar(){
         this.jTxtCodigo.setText("");
@@ -505,6 +503,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
         if(evt.getStateChange() == ItemEvent.SELECTED){
             if(this.jComboEquipo.getSelectedIndex()>0){
                    llenarComboJugador();
+                   llenarTxtIdJugador();
             }
         }
         llenarTxtIdEquipo();
@@ -515,7 +514,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboTipoItemStateChanged
 
     private void jComboJugadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboJugadorItemStateChanged
-//        llenarTxtIdJugador();
+        llenarTxtIdJugador();
     }//GEN-LAST:event_jComboJugadorItemStateChanged
 
     private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
@@ -580,7 +579,11 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablaGolMouseClicked
 
     private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
-        this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
+        if(jComboBuscar.getSelectedItem().equals("Seleccione uno")){
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un criterio de busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            evt.consume();
+        }else{
+            this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 if (jComboBuscar.getSelectedItem().equals("Código")){               
@@ -596,6 +599,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
                 }
             }
         });
+        } 
         DefaultTableModel tablas = mostrar();
         tbs = new TableRowSorter(tablas);
         this.jTablaGol.setRowSorter(tbs);

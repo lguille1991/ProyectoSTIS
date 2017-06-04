@@ -384,7 +384,11 @@ public void insertar(){
     }//GEN-LAST:event_jTablaEstMouseClicked
 
     private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
-        this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
+        if(jComboBuscar.getSelectedItem().equals("Seleccione uno")){
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un criterio de busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            evt.consume();
+        }else{
+            this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 if (jComboBuscar.getSelectedItem().equals("Código")){               
@@ -394,6 +398,7 @@ public void insertar(){
                 }
             }
         });
+        }
         DefaultTableModel tablas = mostrar();
         tbs = new TableRowSorter(tablas);
         this.jTablaEst.setRowSorter(tbs);

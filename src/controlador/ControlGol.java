@@ -49,7 +49,7 @@ public class ControlGol implements OperacionesGol{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="update gol set idTipoGol="+go.getIdTipoGol()+",idJugador='"+go.getIdJugador()+",minuto="+go.getMinuto()+" where idGol="+go.getIdGol();
+            sql="update gol set idTipoGol="+go.getIdTipoGol()+",idJugador="+go.getIdJugador()+",minuto="+go.getMinuto()+" where idGol="+go.getIdGol();
             st.executeUpdate(sql);
             st.close();
             cn.close();
