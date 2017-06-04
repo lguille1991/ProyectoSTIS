@@ -205,7 +205,6 @@ public class ControlGol implements OperacionesGol{
             while(res.next()){
                idJugador = res.getInt("idJugador");     
             }  
-        
             res.close();
             cn.close();
             st.close();
