@@ -126,13 +126,12 @@ public class ControlEmpleado implements OperacionesEmpleado{
       try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
-            sql="select cargo from empleado";
+            sql="select * from empleado";
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
             while(res.next()){
                cargo.add(res.getString("cargo"));     
             }  
-        
             res.close();
             cn.close();
             st.close();

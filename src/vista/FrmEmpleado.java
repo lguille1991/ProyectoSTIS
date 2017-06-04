@@ -432,7 +432,10 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablaEmpMouseClicked
 
     private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
-        this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
+        if(jComboBuscar.getSelectedItem().equals("Seleccione uno")){
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un criterio de busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }else{
+            this.jTxtBusqueda.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 if (jComboBuscar.getSelectedItem().equals("Código")){               
@@ -444,6 +447,7 @@ public class FrmEmpleado extends javax.swing.JInternalFrame {
                 }
             }
         });
+        }
         DefaultTableModel tablas = mostrar();
         tbs = new TableRowSorter(tablas);
         this.jTablaEmp.setRowSorter(tbs);

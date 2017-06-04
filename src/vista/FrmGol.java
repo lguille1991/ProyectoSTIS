@@ -499,7 +499,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTxtMinutoKeyTyped
 
     private void jComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboEquipoItemStateChanged
-//        // Dinamic combobox jugador
+        // Dinamic combobox jugador
 //        ControlGol cg = new ControlGol();
 //        if(evt.getStateChange() == ItemEvent.SELECTED){
 //            if(this.jComboEquipo.getSelectedIndex()>0){
