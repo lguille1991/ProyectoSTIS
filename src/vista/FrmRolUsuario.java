@@ -1,23 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
+import controlador.ControlRolUsuario;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import modelo.RolUsuario;
 
 /**
  *
  * @author TOSHIBA
  */
 public class FrmRolUsuario extends javax.swing.JInternalFrame {
-
+    private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
+    TableRowSorter tbs ;
+    DefaultTableModel model;
     /**
      * Creates new form frmRol_Usuario
      */
     public FrmRolUsuario() {
         initComponents();
+        mostrar();
     }
 
     /**
@@ -40,7 +46,10 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
         BtnEliminar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablaRol = new javax.swing.JTable();
+        BtnNuevo = new javax.swing.JButton();
+        jTxtBusqueda = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
@@ -51,6 +60,7 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Código:");
 
+        jTxtCodigo.setEnabled(false);
         jTxtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtCodigoKeyTyped(evt);
@@ -59,12 +69,23 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
 
         BtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         BtnBuscar.setText("Buscar");
+        BtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscarMouseClicked(evt);
+            }
+        });
 
         BtnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
         BtnEditar.setText("Editar");
+        BtnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEditarMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Nombre:");
 
+        jTxtNombre.setEnabled(false);
         jTxtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtNombreKeyTyped(evt);
@@ -73,14 +94,29 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
 
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGuardarMouseClicked(evt);
+            }
+        });
 
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
         BtnEliminar.setText("Eliminar");
+        BtnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEliminarMouseClicked(evt);
+            }
+        });
 
         BtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
         BtnCancelar.setText("Cancelar");
+        BtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCancelarMouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablaRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -91,70 +127,106 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
                 "Código", "Nombre"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTablaRol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaRolMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTablaRol);
+
+        BtnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
+        BtnNuevo.setText("Nuevo");
+        BtnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnNuevoMouseClicked(evt);
+            }
+        });
+
+        jTxtBusqueda.setEnabled(false);
+        jTxtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtBusquedaKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("Buscar:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(22, 22, 22)
+                            .addComponent(jTxtCodigo))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel1))
+                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(22, 22, 22)
-                                    .addComponent(jTxtCodigo))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(BtnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                            .addComponent(BtnCancelar)
+                            .addComponent(BtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(22, 22, 22)
+                        .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(222, 222, 222))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(BtnBuscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(8, 8, 8)
-                .addComponent(BtnEditar)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnEliminar)
+                            .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnCancelar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnBuscar)
+                            .addComponent(BtnNuevo))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnEditar)
+                            .addComponent(BtnEliminar))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnGuardar)
+                            .addComponent(BtnCancelar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23))))
         );
 
         pack();
@@ -176,6 +248,155 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTxtNombreKeyTyped
 
+    private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
+        if(this.jTxtNombre.getText().equals("")){//No permite guardar si el campo está vacío
+            JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(editar==0){
+                insertar(); 
+            }else if(editar==1){
+            modificar();
+            }
+        }
+        habilitarInput(false,false);
+    }//GEN-LAST:event_BtnGuardarMouseClicked
+
+    private void jTablaRolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaRolMouseClicked
+        int fila=this.jTablaRol.getSelectedRow();
+        this.jTxtCodigo.setText(String.valueOf(this.jTablaRol.getValueAt(fila, 0)));
+        this.jTxtNombre.setText(String.valueOf(this.jTablaRol.getValueAt(fila, 1)));
+    }//GEN-LAST:event_jTablaRolMouseClicked
+
+    private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
+        if(this.jTxtNombre.getText().equals("")){//No permite eliminar sin haber seleccionado un registro
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            eliminar();
+        }
+    }//GEN-LAST:event_BtnEliminarMouseClicked
+
+    private void BtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnNuevoMouseClicked
+        habilitarInput(true,false);
+        limpiar();
+    }//GEN-LAST:event_BtnNuevoMouseClicked
+
+    private void BtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCancelarMouseClicked
+        habilitarInput(false,true);
+        limpiar();
+    }//GEN-LAST:event_BtnCancelarMouseClicked
+
+    private void BtnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEditarMouseClicked
+        if(this.jTxtNombre.getText().equals("")){//No permite editar sin haber seleccionado un registro
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a editar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            habilitarInput(true,false);
+            editar=1;        
+        }
+    }//GEN-LAST:event_BtnEditarMouseClicked
+
+    private void jTxtBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtBusquedaKeyTyped
+        this.jTxtBusqueda.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent e) {
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
+            }   
+            });
+        DefaultTableModel tablas = mostrar();
+        tbs = new TableRowSorter(tablas);
+        jTablaRol.setRowSorter(tbs);
+    }//GEN-LAST:event_jTxtBusquedaKeyTyped
+
+    private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
+        habilitarInput(false,true);
+    }//GEN-LAST:event_BtnBuscarMouseClicked
+   
+    public void insertar(){
+        RolUsuario rol = new RolUsuario();
+        ControlRolUsuario cru = new ControlRolUsuario();
+        try{
+            rol.setIdNombre(this.jTxtNombre.getText());
+            String msj=cru.agregarRol(rol);
+            JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+            mostrar();
+            limpiar();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void modificar(){
+        RolUsuario rol = new RolUsuario();
+        ControlRolUsuario cru = new ControlRolUsuario();
+        try{
+            rol.setIdRol(Integer.parseInt(this.jTxtCodigo.getText()));
+            rol.setIdNombre(this.jTxtNombre.getText());
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea modificar el registro", "Modificar Rol Usuario", JOptionPane.YES_NO_OPTION);
+            if(SiONo==0){
+                String msj=cru.modificarRol(rol);
+                JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                mostrar();
+                limpiar();
+            }else{
+                limpiar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }    
+    }
+    
+    public void eliminar(){
+        RolUsuario rol = new RolUsuario();
+        ControlRolUsuario cru = new ControlRolUsuario();
+        try{
+            rol.setIdRol(Integer.parseInt(this.jTxtCodigo.getText()));
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Eliminar Rol Usuario", JOptionPane.YES_NO_OPTION);
+            if(SiONo==0){
+                String msj=cru.eliminarRol(rol);
+                JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                mostrar();
+                limpiar();
+            }else{
+                limpiar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public DefaultTableModel mostrar(){
+        String []columnas={"Código","Nombre"};
+        Object[]obj=new Object[2];
+        DefaultTableModel tabla = new DefaultTableModel(null,columnas);
+        RolUsuario rol = new RolUsuario();
+        ControlRolUsuario cru = new ControlRolUsuario();
+        List ls;
+        try{
+            ls=cru.mostrarRol();
+            for(int i=0;i<ls.size();i++){
+                rol=(RolUsuario)ls.get(i);
+                obj[0]=rol.getIdRol();
+                obj[1]=rol.getIdNombre();
+                tabla.addRow(obj);
+            }
+            ls=cru.mostrarRol();
+            this.jTablaRol.setModel(tabla);
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }
+        return tabla;
+    }
+    
+    public void limpiar(){
+        this.jTxtCodigo.setText("");
+        this.jTxtNombre.setText("");
+    }
+    
+    public boolean habilitarInput(boolean opcion, boolean opcion2){//Habilita o deshabilita los campos del formulario
+        this.jTxtNombre.setEnabled(opcion);
+        this.jTxtBusqueda.setEnabled(opcion2);
+        return opcion;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
@@ -183,11 +404,14 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnEditar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnGuardar;
+    private javax.swing.JButton BtnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablaRol;
+    private javax.swing.JTextField jTxtBusqueda;
     private javax.swing.JTextField jTxtCodigo;
     private javax.swing.JTextField jTxtNombre;
     // End of variables declaration//GEN-END:variables

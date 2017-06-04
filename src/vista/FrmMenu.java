@@ -55,6 +55,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuAdmin = new javax.swing.JMenu();
         jEmpleado = new javax.swing.JMenuItem();
         jUsuario = new javax.swing.JMenuItem();
+        jRol = new javax.swing.JMenuItem();
         jMenuAyuda = new javax.swing.JMenu();
         jAyuda = new javax.swing.JMenuItem();
 
@@ -248,6 +249,14 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         jMenuAdmin.add(jUsuario);
 
+        jRol.setText("Roles de Usuario");
+        jRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRolActionPerformed(evt);
+            }
+        });
+        jMenuAdmin.add(jRol);
+
         menuBar.add(jMenuAdmin);
 
         jMenuAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ayuda.png"))); // NOI18N
@@ -403,6 +412,12 @@ public class FrmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 
+    private void jRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRolActionPerformed
+        FrmRolUsuario rol = new FrmRolUsuario();
+        rol.setVisible(true);
+        this.desktopPane.add(rol);
+    }//GEN-LAST:event_jRolActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,6 +477,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jPartido;
     private javax.swing.JMenuItem jResultado;
     private javax.swing.JMenuItem jRoja;
+    private javax.swing.JMenuItem jRol;
     private javax.swing.JMenuItem jSalir;
     private javax.swing.JMenuItem jTipoGol;
     private javax.swing.JMenuItem jTorneo;

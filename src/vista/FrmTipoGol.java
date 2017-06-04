@@ -5,19 +5,30 @@
  */
 package vista;
 
+import controlador.ControlTipoGol;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import modelo.TipoGol;
 
 /**
  *
  * @author TOSHIBA
  */
 public class FrmTipoGol extends javax.swing.JInternalFrame {
-
+private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
+    TableRowSorter tbs ;
+    DefaultTableModel model;
     /**
      * Creates new form frmTipo_Gol
      */
     public FrmTipoGol() {
         initComponents();
+        mostrar();
     }
 
     /**
@@ -29,25 +40,33 @@ public class FrmTipoGol extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton5 = new javax.swing.JButton();
+        jBtnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTxtCodigoTipoGol = new javax.swing.JTextField();
         jTxtNombreTipoGol = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jbtnBuscar = new javax.swing.JButton();
+        jBtnEditar = new javax.swing.JButton();
+        jBtnGuardar = new javax.swing.JButton();
+        jBtnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablaTG = new javax.swing.JTable();
+        jBtnNuevo = new javax.swing.JButton();
+        jTxtBusqueda = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
-        jButton5.setText("Cancelar");
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
+        jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnCancelarMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Tipo de Gol");
@@ -56,36 +75,53 @@ public class FrmTipoGol extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Nombre Tipo de Gol:");
 
-        jTxtCodigoTipoGol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtCodigoTipoGolActionPerformed(evt);
-            }
-        });
+        jTxtCodigoTipoGol.setEnabled(false);
         jTxtCodigoTipoGol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtCodigoTipoGolKeyTyped(evt);
             }
         });
 
+        jTxtNombreTipoGol.setEnabled(false);
         jTxtNombreTipoGol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTxtNombreTipoGolKeyTyped(evt);
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
-        jButton1.setText("Buscar");
+        jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
+        jbtnBuscar.setText("Buscar");
+        jbtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnBuscarMouseClicked(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
-        jButton2.setText("Editar");
+        jBtnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editar.png"))); // NOI18N
+        jBtnEditar.setText("Editar");
+        jBtnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnEditarMouseClicked(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
-        jButton3.setText("Guardar");
+        jBtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
+        jBtnGuardar.setText("Guardar");
+        jBtnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnGuardarMouseClicked(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
-        jButton4.setText("Eliminar");
+        jBtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        jBtnEliminar.setText("Eliminar");
+        jBtnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnEliminarMouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablaTG.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -96,7 +132,29 @@ public class FrmTipoGol extends javax.swing.JInternalFrame {
                 "Código tipo de gol", "Nombre"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTablaTG.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaTGMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTablaTG);
+
+        jBtnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
+        jBtnNuevo.setText("Nuevo");
+        jBtnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnNuevoMouseClicked(evt);
+            }
+        });
+
+        jTxtBusqueda.setEnabled(false);
+        jTxtBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTxtBusquedaMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setText("Buscar:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,26 +164,35 @@ public class FrmTipoGol extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTxtNombreTipoGol, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtCodigoTipoGol, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(114, 114, 114)
+                            .addComponent(jTxtCodigoTipoGol, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnCancelar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTxtBusqueda)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(223, 223, 223))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,33 +201,121 @@ public class FrmTipoGol extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jbtnBuscar)
                     .addComponent(jTxtCodigoTipoGol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jBtnNuevo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(jBtnEditar)
                     .addComponent(jTxtNombreTipoGol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jBtnEliminar))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtnCancelar)
+                            .addComponent(jBtnGuardar))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtCodigoTipoGolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCodigoTipoGolActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtCodigoTipoGolActionPerformed
-
+    public void insertar(){
+        TipoGol tg = new TipoGol();
+        ControlTipoGol ctg = new ControlTipoGol();
+        try{
+            tg.setNombreGol(this.jTxtNombreTipoGol.getText());
+            String msj=ctg.agregarTipoGol(tg);
+            JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+            mostrar();
+            limpiar();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void modificar(){
+        TipoGol tg = new TipoGol();
+        ControlTipoGol ctg = new ControlTipoGol();
+        try{
+            tg.setIdTipoGol(Integer.parseInt(this.jTxtCodigoTipoGol.getText()));
+            tg.setNombreGol(this.jTxtNombreTipoGol.getText());
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea modificar el registro", "Modificar Tipo Gol", JOptionPane.YES_NO_OPTION);
+            if(SiONo==0){
+                String msj=ctg.modificarTipoGol(tg);
+                JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                mostrar();
+                limpiar();
+            }else{
+                limpiar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }    
+    }
+    
+    public void eliminar(){
+        TipoGol tg = new TipoGol();
+        ControlTipoGol ctg = new ControlTipoGol();
+        try{
+            tg.setIdTipoGol(Integer.parseInt(this.jTxtCodigoTipoGol.getText()));
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Eliminar Tipo Gol", JOptionPane.YES_NO_OPTION);
+            if(SiONo==0){
+                String msj=ctg.eliminarTipoGol(tg);
+                JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                mostrar();
+                limpiar();
+            }else{
+                limpiar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public DefaultTableModel mostrar(){
+        String []columnas={"Código tipo de gol","Nombre tipo de gol"};
+        Object[]obj=new Object[2];
+        DefaultTableModel tabla = new DefaultTableModel(null,columnas);
+        TipoGol tg = new TipoGol();
+        ControlTipoGol ctg = new ControlTipoGol();
+        List ls;
+        try{
+            ls=ctg.mostrarTipoGol();
+            for(int i=0;i<ls.size();i++){
+                tg=(TipoGol)ls.get(i);
+                obj[0]=tg.getIdTipoGol();
+                obj[1]=tg.getNombreGol();
+                tabla.addRow(obj);
+            }
+            ls=ctg.mostrarTipoGol();
+            this.jTablaTG.setModel(tabla);
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }
+        return tabla;
+    }
+    
+    public void limpiar(){
+        this.jTxtCodigoTipoGol.setText("");
+        this.jTxtNombreTipoGol.setText("");
+    }
+    
+    public boolean habilitarInput(boolean opcion, boolean opcion2){//Habilita o deshabilita los campos del formulario
+        this.jTxtNombreTipoGol.setEnabled(opcion);
+        this.jTxtBusqueda.setEnabled(opcion2);
+        return opcion;
+    }
+    
     private void jTxtCodigoTipoGolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoTipoGolKeyTyped
         //Validación números jTxtCodigo
         Character s = evt.getKeyChar();
@@ -177,19 +332,84 @@ public class FrmTipoGol extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTxtNombreTipoGolKeyTyped
 
+    private void jBtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnGuardarMouseClicked
+        if(this.jTxtNombreTipoGol.getText().equals("")){//No permite guardar si el campo está vacío
+            JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(editar==0){
+                insertar(); 
+            }else if(editar==1){
+            modificar();
+            }
+        }
+        habilitarInput(false,false);
+    }//GEN-LAST:event_jBtnGuardarMouseClicked
+
+    private void jTablaTGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaTGMouseClicked
+        int fila=this.jTablaTG.getSelectedRow();
+        this.jTxtCodigoTipoGol.setText(String.valueOf(this.jTablaTG.getValueAt(fila, 0)));
+        this.jTxtNombreTipoGol.setText(String.valueOf(this.jTablaTG.getValueAt(fila, 1)));
+    }//GEN-LAST:event_jTablaTGMouseClicked
+
+    private void jBtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnEliminarMouseClicked
+        if(this.jTxtNombreTipoGol.getText().equals("")){//No permite eliminar sin haber seleccionado un registro
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            eliminar();
+        }
+    }//GEN-LAST:event_jBtnEliminarMouseClicked
+
+    private void jBtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnNuevoMouseClicked
+        habilitarInput(true,false);
+        limpiar();
+    }//GEN-LAST:event_jBtnNuevoMouseClicked
+
+    private void jBtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnCancelarMouseClicked
+        habilitarInput(false,true);
+        limpiar();
+    }//GEN-LAST:event_jBtnCancelarMouseClicked
+
+    private void jBtnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnEditarMouseClicked
+        if(this.jTxtNombreTipoGol.getText().equals("")){//No permite editar sin haber seleccionado un registro
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un registro a editar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            habilitarInput(true,false);
+            editar=1;        
+        }
+    }//GEN-LAST:event_jBtnEditarMouseClicked
+
+    private void jTxtBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTxtBusquedaMouseClicked
+        this.jTxtBusqueda.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent e) {
+                 tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
+            }   
+            });
+        DefaultTableModel tablas = mostrar();
+        tbs = new TableRowSorter(tablas);
+        jTablaTG.setRowSorter(tbs);
+    }//GEN-LAST:event_jTxtBusquedaMouseClicked
+
+    private void jbtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnBuscarMouseClicked
+         habilitarInput(false,true);
+    }//GEN-LAST:event_jbtnBuscarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnEditar;
+    private javax.swing.JButton jBtnEliminar;
+    private javax.swing.JButton jBtnGuardar;
+    private javax.swing.JButton jBtnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablaTG;
+    private javax.swing.JTextField jTxtBusqueda;
     private javax.swing.JTextField jTxtCodigoTipoGol;
     private javax.swing.JTextField jTxtNombreTipoGol;
+    private javax.swing.JButton jbtnBuscar;
     // End of variables declaration//GEN-END:variables
 }
