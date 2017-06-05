@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.WindowEvent;
+
 
 
 /**
@@ -46,7 +48,6 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
         jJornada = new javax.swing.JMenuItem();
         jNacionalidad = new javax.swing.JMenuItem();
         jResultado = new javax.swing.JMenuItem();
-        jSalir = new javax.swing.JMenuItem();
         jMenuAyuda = new javax.swing.JMenu();
         jAyuda = new javax.swing.JMenuItem();
 
@@ -125,6 +126,7 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
         jMenuGol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/goles.png"))); // NOI18N
         jMenuGol.setText("Gestionar goles");
 
+        jGol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/goal.png"))); // NOI18N
         jGol.setText("Goles");
         jGol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +135,7 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
         });
         jMenuGol.add(jGol);
 
+        jTipoGol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/goalType.png"))); // NOI18N
         jTipoGol.setText("Tipos de gol");
         jTipoGol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +149,7 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
         jAmonestacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amonestaciones.png"))); // NOI18N
         jAmonestacion.setText("Gestionar amonestaciones");
 
+        jAmarilla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/yellowCard.png"))); // NOI18N
         jAmarilla.setText("Tarjeta amarilla");
         jAmarilla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,6 +158,7 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
         });
         jAmonestacion.add(jAmarilla);
 
+        jRoja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/redCard.png"))); // NOI18N
         jRoja.setText("Tarjeta roja");
         jRoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,19 +215,15 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
         });
         jMenuTorneo.add(jResultado);
 
-        jSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jSalir.setText("Salir");
-        jMenuTorneo.add(jSalir);
-
         menuBar.add(jMenuTorneo);
 
         jMenuAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ayuda.png"))); // NOI18N
         jMenuAyuda.setMnemonic('h');
         jMenuAyuda.setText("Ayuda");
 
-        jAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/user-guide.png"))); // NOI18N
         jAyuda.setMnemonic('c');
-        jAyuda.setText("Ayuda");
+        jAyuda.setText("Guía Manual Usuario");
         jMenuAyuda.add(jAyuda);
 
         menuBar.add(jMenuAyuda);
@@ -413,7 +414,6 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
     private javax.swing.JMenuItem jPartido;
     private javax.swing.JMenuItem jResultado;
     private javax.swing.JMenuItem jRoja;
-    private javax.swing.JMenuItem jSalir;
     private javax.swing.JMenuItem jTipoGol;
     private javax.swing.JMenuItem jTorneo;
     private javax.swing.JMenuBar menuBar;

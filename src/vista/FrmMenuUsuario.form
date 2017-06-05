@@ -103,6 +103,9 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jGol">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/iconos/goal.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Goles"/>
                   </Properties>
                   <Events>
@@ -111,6 +114,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jTipoGol">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/iconos/goalType.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Tipos de gol"/>
                   </Properties>
                   <Events>
@@ -129,6 +135,9 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jAmarilla">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/iconos/yellowCard.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Tarjeta amarilla"/>
                   </Properties>
                   <Events>
@@ -137,6 +146,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRoja">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/iconos/redCard.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Tarjeta roja"/>
                   </Properties>
                   <Events>
@@ -201,14 +213,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jResultadoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jSalir">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+F4"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Salir"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuAyuda">
@@ -222,11 +226,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jAyuda">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F1"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/iconos/user-guide.png"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="99"/>
-                <Property name="text" type="java.lang.String" value="Ayuda"/>
+                <Property name="text" type="java.lang.String" value="Gu&#xed;a Manual Usuario"/>
               </Properties>
             </MenuItem>
           </SubComponents>

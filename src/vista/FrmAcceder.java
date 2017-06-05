@@ -1,6 +1,7 @@
 package vista;
 
 import controlador.ControlAcceder;
+import controlador.Validaciones;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author TOSHIBA
  */
 public class FrmAcceder extends javax.swing.JFrame {
- 
+    Validaciones val=new Validaciones();
     /**
      * Creates new form FrmAcceder
      */
@@ -45,6 +46,11 @@ public class FrmAcceder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtUsuarioKeyTyped(evt);
+            }
+        });
         desktopPane.add(jTxtUsuario);
         jTxtUsuario.setBounds(310, 70, 130, 30);
 
@@ -54,6 +60,12 @@ public class FrmAcceder extends javax.swing.JFrame {
         jLabel2.setText("Contraseña :");
         desktopPane.add(jLabel2);
         jLabel2.setBounds(210, 130, 79, 17);
+
+        jTxtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtPasswordKeyTyped(evt);
+            }
+        });
         desktopPane.add(jTxtPassword);
         jTxtPassword.setBounds(310, 130, 130, 30);
 
@@ -122,6 +134,16 @@ public class FrmAcceder extends javax.swing.JFrame {
             autenticacion();
         }
     }//GEN-LAST:event_jBtnIngresarMouseClicked
+
+    private void jTxtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtUsuarioKeyTyped
+        // validar usuario
+        val.validarUsuario(evt);
+    }//GEN-LAST:event_jTxtUsuarioKeyTyped
+
+    private void jTxtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtPasswordKeyTyped
+        //validar contraseña
+        val.validarContrasena(evt);
+    }//GEN-LAST:event_jTxtPasswordKeyTyped
 
     /**
      * @param args the command line arguments
