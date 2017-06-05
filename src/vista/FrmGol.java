@@ -190,6 +190,11 @@ public class FrmGol extends javax.swing.JInternalFrame {
                 BtnNuevoMouseClicked(evt);
             }
         });
+        BtnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNuevoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Busqueda:");
 
@@ -499,8 +504,9 @@ public class FrmGol extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTxtMinutoKeyTyped
 
     private void jComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboEquipoItemStateChanged
-        // Dinamic combobox jugador
-        if(evt.getStateChange() == ItemEvent.SELECTED){
+
+        if(evt.getStateChange() == ItemEvent.SELECTED)
+        {
             if(this.jComboEquipo.getSelectedIndex()>0){
                    llenarComboJugador();
                    llenarTxtIdJugador();
@@ -604,6 +610,10 @@ public class FrmGol extends javax.swing.JInternalFrame {
         tbs = new TableRowSorter(tablas);
         this.jTablaGol.setRowSorter(tbs);
     }//GEN-LAST:event_jTxtBusquedaKeyTyped
+
+    private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnNuevoActionPerformed
 
     
 

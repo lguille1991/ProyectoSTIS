@@ -5,19 +5,41 @@ package modelo;
  */
 public class TarjetaRoja {
     private int idTarjetaRoja;
-    private int minuto;
+    private int minuto;  
+    private int idEquipo;
+    private String nombreEquipo;
     private int idJugador;
-    private String nombreJugador;
+    private String nombreJugador;;
 
     public TarjetaRoja() {
     }
 
-    public TarjetaRoja(int idTarjetaRoja, int minuto, int idJugador, String nombreJugador) {
+    public TarjetaRoja(int idTarjetaRoja, int minuto, int idEquipo, String nombreEquipo, int idJugador, String nombreJugador) {
         this.idTarjetaRoja = idTarjetaRoja;
         this.minuto = minuto;
+        this.idEquipo = idEquipo;
+        this.nombreEquipo = nombreEquipo;
         this.idJugador = idJugador;
         this.nombreJugador = nombreJugador;
     }
+
+    public int getIdEquipo() {
+        return idEquipo;
+    }
+
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
+   
 
     public int getIdTarjetaRoja() {
         return idTarjetaRoja;

@@ -5,22 +5,24 @@ package modelo;
  */
 public class Usuario {
     private int idUsuario;
+    private String nombreUsuario;
+    private int idEmpleado;
+    private String nombreEmpleado;    
     private String contrasena;
     private int idRol;
-    private String idNombre;
-    private int idEmpleado;
-    private String nombreEmpleado;
+    private String nombreRol;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String contrasena, int idRol, String idNombre, int idEmpleado, String nombreEmpleado) {
+    public Usuario(int idUsuario, String nombreUsuario, int idEmpleado, String nombreEmpleado, String contrasena, int idRol, String nombreRol) {
         this.idUsuario = idUsuario;
-        this.contrasena = contrasena;
-        this.idRol = idRol;
-        this.idNombre = idNombre;
+        this.nombreUsuario = nombreUsuario;
         this.idEmpleado = idEmpleado;
         this.nombreEmpleado = nombreEmpleado;
+        this.contrasena = contrasena;
+        this.idRol = idRol;
+        this.nombreRol = nombreRol;
     }
 
     public int getIdUsuario() {
@@ -31,28 +33,12 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public int getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
-
-    public String getIdNombre() {
-        return idNombre;
-    }
-
-    public void setIdNombre(String idNombre) {
-        this.idNombre = idNombre;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public int getIdEmpleado() {
@@ -71,9 +57,27 @@ public class Usuario {
         this.nombreEmpleado = nombreEmpleado;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", contrasena=" + contrasena + ", idRol=" + idRol + ", idNombre=" + idNombre + ", idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + '}';
+    public String getContrasena() {
+        return contrasena;
     }
 
-}
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
+ }
