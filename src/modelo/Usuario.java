@@ -5,6 +5,7 @@ package modelo;
  */
 public class Usuario {
     private int idUsuario;
+    private String nombreUsuario;
     private String contrasena;
     private int idRol;
     private String idNombre;
@@ -14,8 +15,9 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String contrasena, int idRol, String idNombre, int idEmpleado, String nombreEmpleado) {
+    public Usuario(int idUsuario, String nombreUsuario, String contrasena, int idRol, String idNombre, int idEmpleado, String nombreEmpleado) {
         this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
         this.idRol = idRol;
         this.idNombre = idNombre;
@@ -29,6 +31,14 @@ public class Usuario {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getContrasena() {
@@ -71,9 +81,5 @@ public class Usuario {
         this.nombreEmpleado = nombreEmpleado;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", contrasena=" + contrasena + ", idRol=" + idRol + ", idNombre=" + idNombre + ", idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + '}';
-    }
 
 }

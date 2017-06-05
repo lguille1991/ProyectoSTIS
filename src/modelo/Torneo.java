@@ -8,19 +8,19 @@ public class Torneo {
     private String nombreTorneo;
     private String fechaInicio;
     private String fechaFinal;
-    private int numeroEquipos;
-    private int numeroJornadas;
+    private int idUsuario;
+    private String nombreUsuario;
 
     public Torneo() {
     }
 
-    public Torneo(int idTorneo, String nombreTorneo, String fechaInicio, String fechaFinal, int numeroEquipos, int numeroJornadas) {
+    public Torneo(int idTorneo, String nombreTorneo, String fechaInicio, String fechaFinal, int idUsuario, String nombreUsuario) {
         this.idTorneo = idTorneo;
         this.nombreTorneo = nombreTorneo;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        this.numeroEquipos = numeroEquipos;
-        this.numeroJornadas = numeroJornadas;
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
     }
 
     public int getIdTorneo() {
@@ -55,25 +55,20 @@ public class Torneo {
         this.fechaFinal = fechaFinal;
     }
 
-    public int getNumeroEquipos() {
-        return numeroEquipos;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setNumeroEquipos(int numeroEquipos) {
-        this.numeroEquipos = numeroEquipos;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public int getNumeroJornadas() {
-        return numeroJornadas;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setNumeroJornadas(int numeroJornadas) {
-        this.numeroJornadas = numeroJornadas;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
-
-    @Override
-    public String toString() {
-        return "Torneo{" + "idTorneo=" + idTorneo + ", nombreTorneo=" + nombreTorneo + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + ", numeroEquipos=" + numeroEquipos + ", numeroJornadas=" + numeroJornadas + '}';
-    }
- 
+    
 }
