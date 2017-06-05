@@ -47,4 +47,18 @@ public class Validaciones {
             evt.consume();
         }
     }
+    
+    public void validarUsuario(KeyEvent evt){
+        s = evt.getKeyChar();
+        if(!Character.isLetter(s) && evt.getKeyChar()!='.' && !Character.isDigit(s)){
+            evt.consume();
+        }
+    }
+    
+    public void validarContrasena(KeyEvent evt){
+        s = evt.getKeyChar();
+        if(!Character.isLetter(s) && s==KeyEvent.VK_SPACE){
+            evt.consume();
+        }
+    }
 }

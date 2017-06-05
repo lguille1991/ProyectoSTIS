@@ -329,7 +329,7 @@ public class FrmNacionalidad extends javax.swing.JInternalFrame {
 
     private void jTxtNacionalidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNacionalidadKeyTyped
         // Validación sólo letras y espacios
-        val.validarTodo(evt);
+        val.validarLetra(evt);
     }//GEN-LAST:event_jTxtNacionalidadKeyTyped
 
     private void BtnNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnNuevoMouseClicked

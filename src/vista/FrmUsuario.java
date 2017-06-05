@@ -7,6 +7,7 @@ package vista;
 
 import controlador.ControlEmpleado;
 import controlador.ControlUsuario;
+import controlador.Validaciones;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -26,6 +27,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     private int nuevo=0;//Bandera para determinar evitar que se ingrese el mismo registro más de una vez
     TableRowSorter tbs ;
     DefaultTableModel model;
+    Validaciones val=new Validaciones();
     /**
      * Creates new form frmUsuario
      */
@@ -227,6 +229,11 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         setResizable(true);
 
         jTxtContrasena.setEnabled(false);
+        jTxtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtContrasenaKeyTyped(evt);
+            }
+        });
 
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
         BtnGuardar.setText("Guardar");
@@ -286,6 +293,11 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         jLabel3.setText("Contraseña");
 
         jTxtUsuario.setEnabled(false);
+        jTxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtUsuarioKeyTyped(evt);
+            }
+        });
 
         jTablasuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -339,6 +351,11 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         jLabel7.setText("Codigo Usuario:");
 
         jTxtIdUsuario.setEnabled(false);
+        jTxtIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTxtIdUsuarioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -553,6 +570,21 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     private void jComboRolUsuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboRolUsuarioItemStateChanged
         llenarTxtIdRol();
     }//GEN-LAST:event_jComboRolUsuarioItemStateChanged
+
+    private void jTxtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIdUsuarioKeyTyped
+        //validacion de numeros
+        val.validarNumero(evt);
+    }//GEN-LAST:event_jTxtIdUsuarioKeyTyped
+
+    private void jTxtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtUsuarioKeyTyped
+        //validar usuario
+        val.validarUsuario(evt);
+    }//GEN-LAST:event_jTxtUsuarioKeyTyped
+
+    private void jTxtContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtContrasenaKeyTyped
+        //validar contraseña
+        val.validarContrasena(evt);
+    }//GEN-LAST:event_jTxtContrasenaKeyTyped
     
     
 

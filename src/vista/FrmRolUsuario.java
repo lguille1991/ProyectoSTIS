@@ -1,6 +1,7 @@
 package vista;
 
 import controlador.ControlRolUsuario;
+import controlador.Validaciones;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -18,6 +19,7 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
     private int editar=0;//Bandera para diferenciar si el BtnGuardar hará un INSERT o un UPDATE
     TableRowSorter tbs ;
     DefaultTableModel model;
+    Validaciones val=new Validaciones();
     /**
      * Creates new form frmRol_Usuario
      */
@@ -234,18 +236,13 @@ public class FrmRolUsuario extends javax.swing.JInternalFrame {
 
     private void jTxtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtCodigoKeyTyped
         //Validación números jTxtCodigo
-        Character s = evt.getKeyChar();
-        if(!Character.isDigit(s)){
-            evt.consume();
-        }
+        val.validarNumero(evt);
+        
     }//GEN-LAST:event_jTxtCodigoKeyTyped
 
     private void jTxtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNombreKeyTyped
         // Validación sólo texto y espacio jTxtNombre
-        Character s = evt.getKeyChar();
-        if(!Character.isLetter(s) && s!=KeyEvent.VK_SPACE){
-            evt.consume();
-        }
+        val.validarLetra(evt);
     }//GEN-LAST:event_jTxtNombreKeyTyped
 
     private void BtnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGuardarMouseClicked
