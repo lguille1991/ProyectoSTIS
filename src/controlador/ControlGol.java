@@ -205,7 +205,6 @@ public class ControlGol implements OperacionesGol{
             while(res.next()){
                idJugador = res.getInt("idJugador");     
             }  
-        
             res.close();
             cn.close();
             st.close();
@@ -226,7 +225,7 @@ public class ControlGol implements OperacionesGol{
         Statement st;
         String sql;
         List tipo = new ArrayList();
-      try{
+        try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             sql="select * from tipo_gol";
