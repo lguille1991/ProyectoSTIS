@@ -11,4 +11,6 @@ public interface OperacionesJugador {
     public String modificarJugador(Object obj);
     public String eliminarJugador(Object obj);
     public List mostrarJugador();
+    public List llenarComboEquipo();
+    public int llenarIdEquipo(String nombreEquipo);
 }
