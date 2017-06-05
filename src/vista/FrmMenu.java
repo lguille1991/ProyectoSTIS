@@ -5,6 +5,8 @@
  */
 package vista;
 
+import java.io.IOException;
+
 
 
 /**
@@ -272,6 +274,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/user-guide.png"))); // NOI18N
         jAyuda.setMnemonic('c');
         jAyuda.setText("Guía Manual Usuario");
+        jAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAyudaActionPerformed(evt);
+            }
+        });
         jMenuAyuda.add(jAyuda);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guideTec.png"))); // NOI18N
@@ -427,6 +434,17 @@ public class FrmMenu extends javax.swing.JFrame {
         rol.setVisible(true);
         this.desktopPane.add(rol);
     }//GEN-LAST:event_jRolActionPerformed
+
+    private void jAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAyudaActionPerformed
+        //Mostrar Manual
+        try{
+        String url = "C:\\Users\\lguil\\OneDrive\\ITCA\\ITCA Ciclo 01-2017\\STIS\\ProyectoSTIS\\src\\manual\\MANUAL-DE-USUARIO.pdf";
+        ProcessBuilder p = new ProcessBuilder();
+        p.command("cmd.exe", "/c", url);
+        p.start();
+        } catch(IOException ex){      
+        }
+    }//GEN-LAST:event_jAyudaActionPerformed
 
     /**
      * @param args the command line arguments
