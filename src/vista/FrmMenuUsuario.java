@@ -17,6 +17,7 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
      */
     public FrmMenuUsuario() {
         initComponents();
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
     /**

@@ -22,17 +22,12 @@ public class ControlGol implements OperacionesGol{
         String sql;
         String msj=null;
         Gol go =(Gol) obj;
-        Resultado re =(Resultado) obj;
         try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
             sql="insert into gol values("+go.getIdGol()+","+go.getIdTipoGol()+","+go.getIdJugador()+","+go.getMinuto()+")";
             st.executeUpdate(sql);
-            //ACTUALIZAR TABLA RESULTADO
-            //
-//            sql = "update resultado set idTipoGol="+go.getIdTipoGol()+",idJugador="+go.getIdJugador()+",minuto="+go.getMinuto()+" where idGol="+go.getIdGol();
-            /////////////////////////////
             st.close();
             cn.close();
             msj="Datos insertados correctamente";

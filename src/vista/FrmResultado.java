@@ -468,13 +468,7 @@ public class FrmResultado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTxtCodigoKeyTyped
 
     private void ComboPartidoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboPartidoItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            if(this.ComboPartido.getSelectedIndex()==1)
-            {
-//           
-            }
-        }
+        
     }//GEN-LAST:event_ComboPartidoItemStateChanged
 
 

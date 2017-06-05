@@ -352,7 +352,7 @@ public class FrmTorneo extends javax.swing.JInternalFrame {
     }
     
     public DefaultTableModel mostrar(){
-        //this.jTxtIdTipo.setVisible(false);
+        this.jTxtIdUsuario.setVisible(false);
         String []columnas={"Código torneo","Nombre","Fecha inicio","Fecha final","Nombre usuario"};
         Object[]obj=new Object[5];
         DefaultTableModel tabla = new DefaultTableModel(null,columnas);

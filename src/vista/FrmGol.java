@@ -69,7 +69,6 @@ public class FrmGol extends javax.swing.JInternalFrame {
         jTxtIdTipo = new javax.swing.JTextField();
         jTxtIdEquipo = new javax.swing.JTextField();
         jTxtIdJugador = new javax.swing.JTextField();
-        resultadoGoles = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -256,8 +255,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jComboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(resultadoGoles, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jComboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -277,9 +275,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(resultadoGoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -318,7 +314,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
                     .addComponent(jTxtIdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtIdEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtIdJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -385,6 +381,7 @@ public class FrmGol extends javax.swing.JInternalFrame {
         this.jTxtIdTipo.setVisible(false);
         this.jTxtIdEquipo.setVisible(false);
         this.jTxtIdJugador.setVisible(false);
+        //this.resultadoGoles.setVisible(false);
         String []columnas={"Código gol","Tipo","Minuto","Jugador","Equipo"};
         Object[]obj=new Object[5];
         DefaultTableModel tabla = new DefaultTableModel(null,columnas);
@@ -656,6 +653,5 @@ public class FrmGol extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTxtIdJugador;
     private javax.swing.JTextField jTxtIdTipo;
     private javax.swing.JTextField jTxtMinuto;
-    private javax.swing.JTextField resultadoGoles;
     // End of variables declaration//GEN-END:variables
 }

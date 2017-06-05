@@ -21,6 +21,7 @@ public class FrmMenu extends javax.swing.JFrame {
      */
     public FrmMenu() {
         initComponents();
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
     /**

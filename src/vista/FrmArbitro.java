@@ -70,6 +70,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
         jComboBuscar = new javax.swing.JComboBox<>();
 
         setClosable(true);
+        setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
@@ -369,7 +370,7 @@ public class FrmArbitro extends javax.swing.JInternalFrame {
     private void jTablaArbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaArbMouseClicked
         int fila=this.jTablaArb.getSelectedRow();
         this.jTxtCodigo.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 0)));
-        //this.jTxtIdNacion.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 1)));
+        this.jTxtIdNacion.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 1)));
         this.jComboNacionalidad.setSelectedItem(String.valueOf(this.jTablaArb.getValueAt(fila, 1).toString()));
         this.jTxtNombre.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 2)));
         this.jTxtFechaNac.setText(String.valueOf(this.jTablaArb.getValueAt(fila, 3)));
