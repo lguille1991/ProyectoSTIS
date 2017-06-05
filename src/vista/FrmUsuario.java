@@ -33,6 +33,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         initComponents();
         mostrar();
         llenarComboEmpleado();
+        llenarComboRol();
         llenarTxtIdEmpleado();
         llenarTxtIdRol();
     }
@@ -63,7 +64,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             us.setNombreUsuario(this.jTxtUsuario.getText());
             us.setContrasena(this.jTxtContrasena.getText());
             us.setIdRol(Integer.parseInt(this.jTxtIdRol.getText()));
-            int SiONo=JOptionPane.showConfirmDialog(this, "Desea modificar el registro", "Modificar Usuario", JOptionPane.YES_NO_OPTION);
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea modificar el registro", "Modificar usuario", JOptionPane.YES_NO_OPTION);
             if(SiONo==0){
                 String msj=cu.modificarUsuario(us);
                 JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
@@ -82,7 +83,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         ControlUsuario cu = new ControlUsuario();
         try{
             us.setIdUsuario(Integer.parseInt(this.jTxtIdUsuario.getText()));
-            int SiONo=JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Eliminar gol", JOptionPane.YES_NO_OPTION);
+            int SiONo=JOptionPane.showConfirmDialog(this, "Desea eliminar el registro", "Eliminar usuario", JOptionPane.YES_NO_OPTION);
             if(SiONo==0){
                 String msj=cu.eliminarUsuario(us);
                 JOptionPane.showMessageDialog(rootPane, msj, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
@@ -97,9 +98,9 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     }
     
     public DefaultTableModel mostrar(){
-        //this.jTxtIdRol.setVisible(false);
-        //this.jTxtIdEmpleado.setVisible(false);
-        String []columnas={"Código Usuario","Nombre Empleado","Nombre Usuario","Contraseña","Nombre Rol Usuario"};
+        this.jTxtIdRol.setVisible(false);
+        this.jTxtIdEmpleado.setVisible(false);
+        String []columnas={"Código Usuario","Nombre Empleado","Nombre Usuario","Contraseña","Rol Usuario"};
         Object[]obj=new Object[5];
         DefaultTableModel tabla = new DefaultTableModel(null,columnas);
         Usuario us = new Usuario();
@@ -113,7 +114,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
                 obj[1]=us.getNombreEmpleado();
                 obj[2]=us.getNombreUsuario();
                 obj[3]=us.getContrasena();
-                obj[4]=us.getIdNombre();
+                obj[4]=us.getNombreRol();
                 tabla.addRow(obj);
             }
             ls=cu.mostrarUsuario();
@@ -149,21 +150,20 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         this.jTxtIdEmpleado.setText(String.valueOf(idEquipo));
     }
     
-//    public void llenarComboRol(){
-//        ControlUsuario cu = new ControlUsuario();
-//        List lista;
-//        Object item;
-//        String cargo = (Integer.parseInt(this.jTxtIdRol.getText()));
-//          try{
-//            lista  = cu.llenarComboBoxRol(cargo);
-//            for (int i=0;i<lista.size();i++) {
-//                item= lista.get(i);
-//                jComboRolUsuario.addItem(item.toString());
-//            }
-//        }catch(Exception e){
-//            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
-//        }              
-//    }
+    public void llenarComboRol(){
+        ControlUsuario cu = new ControlUsuario();
+        List lista;
+        Object item;
+          try{
+            lista  = cu.llenarComboBoxRol();
+            for (int i=0;i<lista.size();i++) {
+                item= lista.get(i);
+                jComboRolUsuario.addItem(item.toString());
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos" + e.toString());
+        }              
+    }
     
     public void llenarTxtIdRol(){
         ControlUsuario cu = new ControlUsuario();
@@ -273,7 +273,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Usuario");
 
-        jComboRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Rol de Usuario" }));
+        jComboRolUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
         jComboRolUsuario.setEnabled(false);
         jComboRolUsuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -323,7 +323,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Empleado" }));
+        jComboEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
         jComboEmpleado.setEnabled(false);
         jComboEmpleado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -465,11 +465,11 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
                     if (jComboBuscar.getSelectedItem().equals("Código Usuario")){               
                         tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 0));
                     } else if (jComboBuscar.getSelectedItem().equals("Nombre Usuario")){               
-                        tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
+                        tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 2));
                     } else if (jComboBuscar.getSelectedItem().equals("Nombre Rol Usuario")){               
-                        tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 3));
-                    } else if (jComboBuscar.getSelectedItem().equals("Nombre Empleado")){               
                         tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 4));
+                    } else if (jComboBuscar.getSelectedItem().equals("Nombre Empleado")){               
+                        tbs.setRowFilter(RowFilter.regexFilter("(?i)"+jTxtBusqueda.getText(), 1));
                     }
                 }   
                 });

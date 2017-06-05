@@ -13,7 +13,7 @@ public interface OperacionesUsuario {
     public List mostrarUsuario();
     public List llenarComboBoxEmpleado();
     public int llenarIdEmpleado(String nombreEmpleado);
-    public List llenarComboBoxRol(String cargo);
+    public List llenarComboBoxRol();
     public int llenarIdRol(String nombreRol);
     
 }
