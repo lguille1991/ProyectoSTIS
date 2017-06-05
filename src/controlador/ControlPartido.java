@@ -25,8 +25,8 @@ public class ControlPartido implements OperacionesPartido{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="insert into partido values("+pa.getIdTorneo()+","+pa.getIdEquipoLocal()+","+pa.getIdEquipoVisitante()+","+pa.getIdEstadio()+
-                    ",'"+pa.getFecha()+"',"+pa.getIdArbitro()+","+pa.getIdHorario()+","+pa.getIdJornada()+")";
+            sql="insert into partido values("+pa.getIdPartido()+","+pa.getIdTorneo()+","+pa.getIdEquipoLocal()+","+pa.getIdEquipoVisitante()+","+pa.getIdEstadio()
+                    +",'"+pa.getFecha()+"',"+pa.getIdArbitro()+","+pa.getIdHorario()+","+pa.getIdJornada()+")";
             st.executeUpdate(sql);
             st.close();
             cn.close();
@@ -50,9 +50,11 @@ public class ControlPartido implements OperacionesPartido{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="update partido set idTorneo="+pa.getIdTorneo()+",idEquipoLocal="+pa.getIdEquipoLocal()+",idEquipoVisitante="+pa.getIdEquipoVisitante()+
-                 ",idEstadio="+pa.getIdEstadio()+",fecha='"+pa.getFecha()+",idArbitro="+pa.getIdArbitro()+
-                    ",idHorario="+pa.getIdHorario()+",idJornada="+pa.getIdJornada()+" where idPartido="+pa.getIdPartido();
+            sql="update partido set idTorneo="+pa.getIdTorneo()+",idEquipoLocal="+pa.getIdEquipoLocal()+",idEquipoVisitante="+pa.getIdEquipoVisitante()+",idEstadio="+pa.getIdEstadio()+",fecha='"+pa.getFecha()+"',idArbitro="+pa.getIdArbitro()+",idHorario="+pa.getIdHorario()+",idJornada="+pa.getIdJornada()+" where idPartido="+pa.getIdPartido();
+            
+            //UPDATE `partido` SET `idTorneo` = '2', `idEquipoLocal` = '2', `idEquipoVisitante` = '1', `idEstadio` = '3', 
+            //`fecha` = '2017-08-02', `idArbitro` = '6', `idHorario` = '1', `idJornada` = '2' WHERE `partido`.`idPartido` = 91;
+            
             st.executeUpdate(sql);
             st.close();
             cn.close();
