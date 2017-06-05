@@ -25,7 +25,7 @@ public class ControlUsuario implements OperacionesUsuario{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="insert into usuario values("+us.getIdUsuario()+","+us.getIdEmpleado()+",'"+us.getNombreUsuario()+"','"+us.getContrasena()+"',"+us.getIdRol()+")";
+            sql="insert into usuario values("+us.getIdUsuario()+","+us.getIdEmpleado()+","+us.getIdRol()+",'"+us.getNombreUsuario()+"','"+us.getContrasena()+"')";
             st.executeUpdate(sql);
             st.close();
             cn.close();
@@ -49,7 +49,7 @@ public class ControlUsuario implements OperacionesUsuario{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             st=cn.createStatement();
-            sql="update usuario set idEmpleado="+us.getIdEmpleado()+",nombreUsuario='"+us.getNombreUsuario()+"',contrasena='"+us.getContrasena()+",idRol="+us.getIdRol()+" where idUsuario="+us.getIdUsuario();
+            sql="update usuario set idEmpleado="+us.getIdEmpleado()+",nombreUsuario='"+us.getNombreUsuario()+"',contrasena='"+us.getContrasena()+"',idRol="+us.getIdRol()+" where idUsuario="+us.getIdUsuario();
             st.executeUpdate(sql);
             st.close();
             cn.close();
@@ -104,9 +104,9 @@ public class ControlUsuario implements OperacionesUsuario{
                 listausuario.add(new Usuario(
                         res.getInt("idUsuario"),
                         res.getString("nombreusuario"),
-                        res.getString("contrasena"),
                         res.getInt("idEmpleado"),
-                        res.getString("nombreEmpleado"),
+                        res.getString("nombreEmpleado"),                        
+                        res.getString("contrasena"),
                         res.getInt("idRol"),
                         res.getString("nombreRol")
                 ));
@@ -128,7 +128,7 @@ public class ControlUsuario implements OperacionesUsuario{
         ResultSet res;
         Statement st;
         String sql;
-        List tipo = new ArrayList();
+        List nombreEmpleado = new ArrayList();
       try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
@@ -136,7 +136,7 @@ public class ControlUsuario implements OperacionesUsuario{
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
             while(res.next()){
-               tipo.add(res.getString("nombreEmpleado"));     
+               nombreEmpleado.add(res.getString("nombreEmpleado"));     
             }  
         
             res.close();
@@ -145,7 +145,7 @@ public class ControlUsuario implements OperacionesUsuario{
         }catch(Exception e){
            e.printStackTrace();
         }
-          return tipo;
+          return nombreEmpleado;
     }
 
     @Override
@@ -161,18 +161,15 @@ public class ControlUsuario implements OperacionesUsuario{
         try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
-            sql="select idEmpleado from equipo where nombreEmpleado = '"+nombreEmpleado+"'";
+            sql="select idEmpleado from empleado where nombreEmpleado = '"+nombreEmpleado+"'";
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
-            
             while(res.next()){
                idEmpleado = res.getInt("idEmpleado");     
             }  
-        
             res.close();
             cn.close();
-            st.close();
-            
+            st.close();    
         }catch(Exception e)
         {
             e.toString();
@@ -181,7 +178,7 @@ public class ControlUsuario implements OperacionesUsuario{
     }
 
     @Override
-    public List llenarComboBoxRol(String cargo) {
+    public List llenarComboBoxRol() {
         Conexion con = new Conexion();
         Connection cn;
         PreparedStatement pre;
@@ -189,10 +186,10 @@ public class ControlUsuario implements OperacionesUsuario{
         Statement st;
         String sql;
         List usuario = new ArrayList();
-      try{
+        try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
-            sql="select * from rol_usuario where nombreRol='"+cargo+"'";
+            sql="select * from rol_usuario";
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
             while(res.next()){
@@ -215,29 +212,23 @@ public class ControlUsuario implements OperacionesUsuario{
         ResultSet res;
         Statement st;
         String sql;
-        int idR = 0;
-        
+        int idRol = 0;
         try{
             Class.forName(con.getDriver());
             cn=DriverManager.getConnection(con.getUrl(),con.getUser(),con.getClave());
             sql="select idRol from rol_usuario where nombreRol = '"+nombreRol+"'";
             st=cn.prepareStatement(sql);
             res = st.executeQuery(sql);
-            
             while(res.next()){
-               idR = res.getInt("idRol");     
+               idRol = res.getInt("idRol");     
             }  
-        
             res.close();
             cn.close();
             st.close();
-            
         }catch(Exception e)
         {
             e.toString();
         }
-        return idR; 
-    }
-
-    
+        return idRol; 
+    }    
 }
