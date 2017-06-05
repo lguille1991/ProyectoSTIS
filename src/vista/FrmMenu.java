@@ -44,8 +44,8 @@ public class FrmMenu extends javax.swing.JFrame {
         jGol = new javax.swing.JMenuItem();
         jTipoGol = new javax.swing.JMenuItem();
         jAmonestacion = new javax.swing.JMenu();
-        jAmarilla = new javax.swing.JMenuItem();
         jRoja = new javax.swing.JMenuItem();
+        jAmarilla = new javax.swing.JMenuItem();
         jClasificacion = new javax.swing.JMenuItem();
         jHorario = new javax.swing.JMenuItem();
         jJornada = new javax.swing.JMenuItem();
@@ -155,14 +155,6 @@ public class FrmMenu extends javax.swing.JFrame {
         jAmonestacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/amonestaciones.png"))); // NOI18N
         jAmonestacion.setText("Gestionar amonestaciones");
 
-        jAmarilla.setText("Tarjeta amarilla");
-        jAmarilla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAmarillaActionPerformed(evt);
-            }
-        });
-        jAmonestacion.add(jAmarilla);
-
         jRoja.setText("Tarjeta roja");
         jRoja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +162,14 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         jAmonestacion.add(jRoja);
+
+        jAmarilla.setText("Tarjeta amarilla");
+        jAmarilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAmarillaActionPerformed(evt);
+            }
+        });
+        jAmonestacion.add(jAmarilla);
 
         jMenuTorneo.add(jAmonestacion);
 
@@ -378,7 +378,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTipoGolActionPerformed
 
     private void jAmarillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAmarillaActionPerformed
-        //Invoca a FrmTarjetaAmarilla
+        //Invoca a FrmTarjetaAmarillanew ¿
         FrmTarjetaAmarilla amarilla = new FrmTarjetaAmarilla();
         amarilla.setVisible(true);
         this.desktopPane.add(amarilla);
