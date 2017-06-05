@@ -1,15 +1,17 @@
 package vista;
 
+import controlador.ControlAcceder;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author TOSHIBA
  */
 public class FrmAcceder extends javax.swing.JFrame {
-
+ 
     /**
      * Creates new form FrmAcceder
      */
@@ -43,11 +45,6 @@ public class FrmAcceder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTxtUsuarioKeyTyped(evt);
-            }
-        });
         desktopPane.add(jTxtUsuario);
         jTxtUsuario.setBounds(310, 70, 130, 30);
 
@@ -94,27 +91,36 @@ public class FrmAcceder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTxtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtUsuarioKeyTyped
-        Character s = evt.getKeyChar();
-        if(!Character.isLetter(s)){
-            evt.consume();
+    
+        public void autenticacion()
+        {
+            ControlAcceder ca = new ControlAcceder();
+            String usuario  = this.jTxtUsuario.getText();
+            String clave    = this.jTxtPassword.getText();
+            int idrol = ca.verificarUsuario(usuario, clave);
+            if(idrol == 1)
+             {
+                   FrmMenu menu= new FrmMenu();
+                   menu.setVisible(true);
+                   this.dispose();
+             }else if(idrol == 2  || idrol==3){
+                 
+                   FrmMenuUsuario menu= new FrmMenuUsuario();//cambiar formulario de menu 
+                   menu.setVisible(true);
+                   this.dispose();
+             }else{
+                 JOptionPane.showMessageDialog(this,"Usuario y/o Contraseña con incorrectas","Error",1);
+             } 
         }
-    }//GEN-LAST:event_jTxtUsuarioKeyTyped
-
+    
+       
     private void jBtnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnIngresarMouseClicked
-      if((this.jTxtUsuario.getText()).equals("admin") && (this.jTxtPassword.getText()).equals("123"))
-          {
-                FrmMenu menu= new FrmMenu();
-                menu.setVisible(true);
-                this.dispose();
-          }else if((this.jTxtUsuario.getText()).equals("usuario") && (this.jTxtPassword.getText()).equals("456")){
-                FrmMenuUsuario menu= new FrmMenuUsuario();//cambiar formulario de menu 
-                menu.setVisible(true);
-                this.dispose();
-          }else{
-              JOptionPane.showMessageDialog(this,"Usuario y/o Contraseña con incorrectas","Error",1);
-          }
+        //No permite guardar si el campo está vacío
+        if(this.jTxtUsuario.getText().isEmpty() && this.jTxtPassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Complete los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE); 
+       }else{ 
+            autenticacion();
+        }
     }//GEN-LAST:event_jBtnIngresarMouseClicked
 
     /**

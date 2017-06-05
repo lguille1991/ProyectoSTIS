@@ -351,7 +351,6 @@ public class FrmMenuUsuario extends javax.swing.JFrame {
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         FrmAcceder login = new FrmAcceder();
         login.setVisible(true);
-        this.desktopPane.add(login);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 

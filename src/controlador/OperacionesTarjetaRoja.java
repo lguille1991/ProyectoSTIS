@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  *
- * @author Maria Jose
+     * @author Maria Jose
  */
 public interface OperacionesTarjetaRoja {
     public String agregarTarjetaR(Object obj);

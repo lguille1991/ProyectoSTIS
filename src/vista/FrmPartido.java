@@ -69,6 +69,7 @@ public class FrmPartido extends javax.swing.JInternalFrame {
         Partido pa = new Partido();
         ControlPartido cp = new ControlPartido();
         try{
+            pa.setIdPartido(Integer.parseInt(this.jTxtCodigo.getText()));
             pa.setIdTorneo(Integer.parseInt(this.jTxtIdTorneo.getText()));
             pa.setIdEquipoLocal(Integer.parseInt(this.jTxtIdLocal.getText()));
             pa.setIdEquipoVisitante(Integer.parseInt(this.jTxtIdVisitante.getText()));
